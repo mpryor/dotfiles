@@ -7,19 +7,19 @@ call vundle#begin()
 
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'			
+Plugin 'scrooloose/syntastic'			
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'mattn/flappyvird-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'flazz/vim-colorschemes'			
-Plugin 'scrooloose/nerdtree'			
-Plugin 'scrooloose/syntastic'			
 Plugin 'raimondi/delimitmate'			
 Plugin 'easymotion/vim-easymotion'
 Plugin 'kshenoy/vim-signature'
-Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
@@ -45,6 +45,8 @@ nmap <Leader>b ;CtrlPBuffer<CR>
 nmap <Leader>p ;CtrlP .<CR>
 nmap <Leader>g ;Gstatus<CR>
 nmap <Leader>f ;NERDTreeFind<CR>
+nmap <Leader>r ;source ~/.vimrc<CR>
+nmap <Leader>o ;e#<CR>
 
 nnoremap ; :
 nnoremap : ;
@@ -111,7 +113,7 @@ if executable('ag')
 endif
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
 
 set statusline+=%#warningmsg#
@@ -121,13 +123,13 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populcte_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_html_tidy_args = "--show-warnings false"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_html_tidy_args = "--show-warnings false"
 let g:ycm_key_invoke_completion = ""
-let g:syntastic_html_tidy_ignore_errors = ["<wiki-editor> is not recognized!"]
+"let g:syntastic_html_tidy_ignore_errors = ["<wiki-editor> is not recognized!"]
 
 function! PingCursor()
 	redir => linecolor
