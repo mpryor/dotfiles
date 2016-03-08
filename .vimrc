@@ -1,9 +1,32 @@
+"============================================================================
+"===========        		VUNDLE AND PLUGINS               ============
+"============================================================================
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=~/.vim/bundle/Vundle.vim
+let haveVundleAlready=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+	echo "Installing Vundle..."
+	echo ""
+	silent !mkdir -p ~/.vim/bundle
+	silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+	let haveVundleAlready = 0
+endif
+
+set rtp+=~/.vim/bundle/vundle
 set updatetime=100
+
+"Active plugins
+"============================================================================
+
 call vundle#begin()
+
+"Let Vundle manage Vundle
+Plugin 'gmarik/Vundle.vim'
+
+"You can disable or add new ones here:
+"Plugins from github repos:
 
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
@@ -11,7 +34,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'			
 Plugin 'scrooloose/syntastic'			
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'gmarik/Vundle.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -27,11 +49,26 @@ Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+"============================================================================
+
+if haveVundleAlready == 0
+	echo "Installing Bundles, please ignore key map error messages"
+	echo ""
+	:BundleInstall
+endif
+
+"============================================================================
+"===========                    MAPPINGS                         ============
+"============================================================================
+
 "Line numbers
 set nu
-
-let mapleader = " "
 set notimeout
+
+"Set <LEADER> to space
+let mapleader = " "
+
+"Normal Mode Mappings
 nmap <Leader>q ;q<CR>
 nmap <Leader>Q ;qa!<CR>
 nmap <Leader>w ;wa!<CR>
@@ -45,11 +82,19 @@ nmap <Leader>b ;CtrlPBuffer<CR>
 nmap <Leader>p ;CtrlP .<CR>
 nmap <Leader>g ;Gstatus<CR>
 nmap <Leader>f ;NERDTreeFind<CR>
-nmap <Leader>r ;source ~/.vimrc<CR>
 nmap <Leader>o ;e#<CR>
+nmap <Leader>r ;source ~/.vimrc<CR>
 
+"Swap ; and :
 nnoremap ; :
 nnoremap : ;
+
+"View registers and act on them
+nnoremap Q :registers<CR>:echo '>' . getline('.')<CR>:normal! "
+
+"Retain visual selection when indenting
+xnoremap < <gv
+xnoremap > >gv
 
 imap jj <ESC>
 
@@ -68,6 +113,11 @@ let &t_te.="\e[0 q"
 colorscheme 256-grayvim
 colorscheme jelleybeans
 set hidden
+
+"Auto sources vimrc when it is saved
+autocmd BufWritePost .vimrc so $MYVIMRC
+
+"Opens .cfg files as json
 autocmd BufNewFile,BufRead *.cfg set filetype=json
 autocmd vimenter * NERDTree
 
@@ -81,6 +131,8 @@ endfunction
 
 autocmd BufWinEnter * if &modifiable | NERDTreeFind | wincmd p | endif
 autocmd VimEnter * wincmd p
+
+"Easy motion config
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 map <Leader><Leader>j <Plug>(easymotion-j)
@@ -91,21 +143,7 @@ omap / <Plug>(easymotion-tn)
 "Use TAB to complete when typing words, else inserts TABs as usual.
 ""Uses dictionary and source files to find matching words to complete.
 
-"See help completion for source,
-"Note: usual completion is on <C-n> but more trouble to press all the time.
-"Never type the same word twice and maybe learn a new spellings!
-""Use the Linux dictionary when spelling is in doubt.
-function! Tab_Or_Complete()
-	if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-		return "\<C-N>"
-	else
-		return "\<Tab>"
-	endif
-endfunction
-
-":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-":set dictionary="/usr/dict/words"
-
+"Fast searching with the silver searcher 
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -118,9 +156,6 @@ nnoremap \ :Ag<SPACE>
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 "let g:syntastic_always_populate_loc_list = 1
@@ -128,8 +163,8 @@ set statusline+=%*
 "let g:syntastic_check_on_open = 0
 "let g:syntastic_check_on_wq = 0
 "let g:syntastic_html_tidy_args = "--show-warnings false"
-let g:ycm_key_invoke_completion = ""
 "let g:syntastic_html_tidy_ignore_errors = ["<wiki-editor> is not recognized!"]
+let g:ycm_key_invoke_completion = ""
 
 function! PingCursor()
 	redir => linecolor
