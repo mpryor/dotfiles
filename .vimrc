@@ -46,7 +46,12 @@ Plug 'easymotion/vim-easymotion'
 Plug 'kshenoy/vim-signature'
 Plug 'terryma/vim-expand-region'
 Plug 'wellle/targets.vim'
-Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
+
+if executable('cmake') 
+	if executable('python')
+		Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
+	endif
+endif
 
 Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
