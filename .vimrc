@@ -6,62 +6,64 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 let haveVundleAlready=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+let vundle_readme=expand('~/.vim/autoload/README.md')
 if !filereadable(vundle_readme)
-	echo "Installing Vundle..."
+	echo "Installing vim-plug..."
 	echo ""
-	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/gmarik/Vundle.vim ~/.vim/bundle/Vundle.vim
+	silent !mkdir -p ~/.vim/autoload
+	silent !git clone https://github.com/junegunn/vim-plug ~/.vim/autoload
 	let haveVundleAlready = 0
 endif
 
-set rtp+=~/.vim/bundle/Vundle.vim
 set updatetime=100
 
 "Active plugins
 "============================================================================
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
 "Let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
 
 "You can disable or add new ones here:
 "Plugins from github repos:
 
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'			
-Plugin 'scrooloose/syntastic'			
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'mattn/emmet-vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'kien/ctrlp.vim'
-Plugin 'flazz/vim-colorschemes'			
-Plugin 'raimondi/delimitmate'			
-Plugin 'easymotion/vim-easymotion'
-Plugin 'kshenoy/vim-signature'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'terryma/vim-expand-region'
-Plugin 'wellle/targets.vim'
-Plugin 'oplatek/Conque-Shell'
+Plug 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0 
 
-Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'			
+Plug 'scrooloose/syntastic'			
+Plug 'scrooloose/nerdcommenter'
+Plug 'mattn/emmet-vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'kien/ctrlp.vim'
+Plug 'flazz/vim-colorschemes'			
+Plug 'raimondi/delimitmate'			
+Plug 'easymotion/vim-easymotion'
+Plug 'kshenoy/vim-signature'
+Plug 'terryma/vim-expand-region'
+Plug 'wellle/targets.vim'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 
-call vundle#end()            " required
+Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+
+call plug#end()            " required
+
 filetype plugin indent on    " required
 
 if haveVundleAlready == 0
 	echo "Installing Bundles, please ignore key map error messages"
 	echo ""
-	:BundleInstall
+	:PlugInstall
 endif
 
 "============================================================================
 "===========                    MAPPINGS                         ============
 "============================================================================
+"set timeout timeoutlen=500 ttimeoutlen=500
 set notimeout
 
 "Set <LEADER> to space
@@ -77,6 +79,8 @@ nmap <Leader>l <C-W>l<ESC>
 nmap <Leader>h <C-W>h<ESC>
 nmap <Leader>j <C-W>j<ESC>
 nmap <Leader>k <C-W>k<ESC>
+
+nmap <CR> G
 
 "CtrlP
 nmap <Leader>b ;CtrlPBuffer<CR>
@@ -128,6 +132,8 @@ vmap <silent> <expr> p <sid>Repl()"
 
 let g:UltiSnipsExpandTrigger="<NUL>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsExpandTrigger="<NUL>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
@@ -138,6 +144,7 @@ let g:UltiSnipsEditSplit="vertical"
 "Line numbers
 set nu
 set hidden
+set cursorline
 
 "Change the cursor to a block shape in terminal
 let &t_ti.="\e[1 q"
@@ -146,8 +153,8 @@ let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
 "Need both set to get desired color scheme
-colorscheme 256-grayvim
-colorscheme jelleybeans
+colorscheme jellybeans
+hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -207,8 +214,6 @@ set backupdir=~/.vim/dirs/backups " where to put backup files
 set undofile                      " persistent undos - undo after you re-open the file
 set undodir=~/.vim/dirs/undos
 set viminfo+=n~/.vim/dirs/viminfo
-" store yankring history file there too
-let g:yankring_history_dir = '~/.vim/dirs/'
 
 " create needed directories if they don't exist
 if !isdirectory(&backupdir)
@@ -228,7 +233,7 @@ endif
 let NERDTreeShowHidden=1
 
 "============================================================================
-"===========        	      Syntastic                          ============
+"===========        	      SYNTASTIC                          ============
 "============================================================================
 
 "let g:syntastic_always_populate_loc_list = 1
@@ -276,5 +281,4 @@ function! PingCursor()
 	exe resetcolumncommand 
 
 	set nocursorline
-	set nocursorcolumn
 endfunction
