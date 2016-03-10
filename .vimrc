@@ -33,7 +33,11 @@ Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'			
+
+"Use brookhong's fork of nerdtree until scrooloose integrates bugfix
+Plug 'brookhong/nerdtree'
+"Plug 'scrooloose/nerdtree'			
+
 Plug 'scrooloose/syntastic'			
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
