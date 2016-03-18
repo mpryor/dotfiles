@@ -1,6 +1,6 @@
-"============================================================================
-"===========        		VUNDLE AND PLUGINS               ============
-"============================================================================
+"Matt Pryor
+
+"VUNDLE AND PLUGINS {{{
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -50,6 +50,11 @@ Plug 'easymotion/vim-easymotion'
 Plug 'kshenoy/vim-signature'
 Plug 'terryma/vim-expand-region'
 Plug 'wellle/targets.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'majutsushi/tagbar'
+Plug 'takac/vim-hardtime'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'benmills/vimux'
 
 if executable('cmake') 
 	if executable('python')
@@ -62,16 +67,14 @@ Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 call plug#end()            " required
 
 filetype plugin indent on    " required
-
 if haveVundleAlready == 0
 	echo "Installing Bundles, please ignore key map error messages"
 	echo ""
 	:PlugInstall
 endif
 
-"============================================================================
-"===========                    MAPPINGS                         ============
-"============================================================================
+"}}}
+"MAPPINGS {{{
 "set timeout timeoutlen=500 ttimeoutlen=500
 set notimeout
 
@@ -79,41 +82,49 @@ set notimeout
 let mapleader = " "
 
 "Window management
-nmap <Leader>q ;q<CR>
-nmap <Leader>Q ;qa!<CR>
-nmap <Leader>w ;wa!<CR>
-nmap <Leader>v ;vsplit<CR>
-nmap <Leader>s ;split<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>Q :qa!<CR>
+nmap <Leader>w :wa!<CR>
+nmap <Leader>v :vsplit<CR>
+nmap <Leader>s :split<CR>
 nmap <Leader>l <C-W>l<ESC>
 nmap <Leader>h <C-W>h<ESC>
 nmap <Leader>j <C-W>j<ESC>
 nmap <Leader>k <C-W>k<ESC>
 
-nmap <CR> G
+"nmap <CR> G
+
+nmap <Leader>co :call VimuxPromptCommand()<CR>
+
+"Folds
+nmap <Leader>fo :call FoldToggle()<CR>
 
 "CtrlP
-nmap <Leader>b ;CtrlPBuffer<CR>
-nmap <Leader>p ;CtrlP .<CR>
+nmap <Leader>b :CtrlPBuffer<CR>
+nmap <Leader>p :CtrlP .<CR>
 
-nmap <Leader>g ;Gstatus<CR>
-nmap <Leader>f ;NERDTreeFind<CR>
+nmap <Leader>m :!markdown % > output.html && open output.html && sleep 2 && rm output.html<CR>
+
+nmap <Leader>g :Gstatus<CR>
+nmap <Leader>f :NERDTreeFind<CR>
 
 "Swap to last file
-nmap <Leader>o ;e#<CR>
-nmap <Leader>r ;source ~/.vimrc<CR>
+nmap <Leader>o :e#<CR>
+nmap <Leader>r :source ~/.vimrc<CR>
 
 "Visual expand
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 "Swap ; and :
-nnoremap ; :
-nnoremap : ;
+"nnoremap ; :
+"nnoremap : ;
 
 "View registers and act on them
 nnoremap Q :registers<CR>:echo '>' . getline('.')<CR>:normal! "
 nnoremap <Leader>c :call PingCursor()<CR>
 nnoremap <F5> :GundoToggle<CR>
+nnoremap <F4> :TagbarToggle<CR>
 
 "Retain visual selection when indenting
 xnoremap < <gv
@@ -135,9 +146,8 @@ function! s:Repl()
 endfunction
 vmap <silent> <expr> p <sid>Repl()"
 
-"============================================================================
-"===========                    ULTISNIPS                        ============
-"============================================================================
+"}}}
+"ULTISNIPS {{{
 
 let g:UltiSnipsExpandTrigger="<NUL>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -146,14 +156,21 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
-"============================================================================
-"===========                     DISPLAY                         ============
-"============================================================================
+"}}}
+"DISPLAY {{{
 
 "Line numbers
 set nu
 set hidden
 set cursorline
+set nolist
+set modeline
+set modelines=1
+
+let g:indent_guides_enable_on_vim_startup = 1
+
+"Keep cursor vertically centered
+set so=9999
 
 "Change the cursor to a block shape in terminal
 let &t_ti.="\e[1 q"
@@ -164,14 +181,14 @@ let &t_te.="\e[0 q"
 "Need both set to get desired color scheme
 colorscheme jellybeans
 hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow
+hi CursorLine ctermbg=236
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-"============================================================================
-"===========        		AUTOMAGIC                        ============
-"============================================================================
+"}}}
+"AUTOMAGIC {{{
 
 "Auto sources vimrc when it is saved
 autocmd BufWritePost .vimrc so $MYVIMRC
@@ -183,21 +200,21 @@ autocmd vimenter * NERDTree
 autocmd BufWinEnter * if &modifiable | NERDTreeFind | wincmd p | endif
 autocmd VimEnter * wincmd p
 
-"============================================================================
-"===========        		EASY MOTION                      ============
-"============================================================================
+"}}}
+"EASY MOTION{{{
 
 "Easy motion config
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 map <Leader><Leader>j <Plug>(easymotion-j)
 map <Leader><Leader>k <Plug>(easymotion-k)
+map <Leader><Leader>h <Plug>(easymotion-linebackward)
+map <Leader><Leader>l <Plug>(easymotion-lineforward)
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
-"============================================================================
-"===========        	      SILVER SEARCHER                    ============
-"============================================================================
+"}}}
+"SILVER SURVER{{{
 
 "Fast searching with the silver searcher 
 if executable('ag')
@@ -212,9 +229,8 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
 
-"============================================================================
-"===========        	      VIM FILES                          ============
-"============================================================================
+"}}}
+"VIM FILES{{{
 
 " better backup, swap and undos storage
 set directory=~/.vim/dirs/tmp     " directory to place swap files in
@@ -235,32 +251,55 @@ if !isdirectory(&undodir)
     call mkdir(&undodir, "p")
 endif
 
-"============================================================================
-"===========        	      NERD TREE                          ============
-"============================================================================
+"}}}
+"NERD TREE {{{
 
 let NERDTreeShowHidden=1
 
-"============================================================================
-"===========        	      SYNTASTIC                          ============
-"============================================================================
+"}}}
+"PEEKABOO {{{
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
+" Default peekaboo window
+let g:peekaboo_window = 'vertical botright 100new'
+
+"}}}
+"HARD TIME{{{
+
+"Set hardtime to be on by default
+let g:hardtime_default_on = 0
+let g:hardtime_ignore_buffer_patterns = [ ".*Tagbar.*", "NERD.*" ]
+let g:hardtime_ignore_quickfix = 1
+let g:hardtime_maxcount = 2
+let g:hardtime_showmsg = 1
+
+"}}}
+"SYNTASTIC {{{
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_open = 0
 "let g:syntastic_check_on_wq = 0
 "let g:syntastic_html_tidy_args = "--show-warnings false"
 "let g:syntastic_html_tidy_ignore_errors = ["<wiki-editor> is not recognized!"]
 
-"============================================================================
-""===========        	     YOU COMPLETE ME                     ============
-"============================================================================
+"}}}
+"YOU COMPLETE ME {{{
 
 let g:ycm_key_invoke_completion = ""
 
-"============================================================================
-""===========        	      FIND CURSOR                        ============
-"============================================================================
+"}}}
+"FIND CURSOR {{{
+
+let g:fold_is_toggled = 0
+function! FoldToggle()
+	if g:fold_is_toggled
+		set foldlevel=0
+		let g:fold_is_toggled = 0
+	else
+		set foldlevel=999
+		let g:fold_is_toggled = 1
+	endif
+endfunction
 
 function! PingCursor()
 	redir => linecolor
@@ -289,5 +328,8 @@ function! PingCursor()
 	let resetcolumncommand = substitute(resetcolumncommand, "xxx","","g")
 	exe resetcolumncommand 
 
-	set nocursorline
+	set nocursorcolumn
 endfunction
+"}}}
+
+" vim:foldmethod=marker:foldlevel=0
