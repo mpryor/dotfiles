@@ -33,6 +33,7 @@ Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-obsession'
 
 "Use brookhong's fork of nerdtree until scrooloose integrates bugfix
 Plug 'brookhong/nerdtree'
@@ -50,7 +51,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'kshenoy/vim-signature'
 Plug 'terryma/vim-expand-region'
 Plug 'wellle/targets.vim'
-Plug 'junegunn/vim-peekaboo'
+"Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'takac/vim-hardtime'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -195,10 +196,10 @@ autocmd BufWritePost .vimrc so $MYVIMRC
 
 "Opens .cfg files as json
 autocmd BufNewFile,BufRead *.cfg set filetype=json
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 
-autocmd BufWinEnter * if &modifiable | NERDTreeFind | wincmd p | endif
-autocmd VimEnter * wincmd p
+"autocmd BufWinEnter * if &modifiable | NERDTreeFind | wincmd p | endif
+"autocmd VimEnter * wincmd p
 
 "}}}
 "EASY MOTION{{{
@@ -242,13 +243,13 @@ set viminfo+=n~/.vim/dirs/viminfo
 
 " create needed directories if they don't exist
 if !isdirectory(&backupdir)
-    call mkdir(&backupdir, "p")
+	call mkdir(&backupdir, "p")
 endif
 if !isdirectory(&directory)
-    call mkdir(&directory, "p")
+	call mkdir(&directory, "p")
 endif
 if !isdirectory(&undodir)
-    call mkdir(&undodir, "p")
+	call mkdir(&undodir, "p")
 endif
 
 "}}}
