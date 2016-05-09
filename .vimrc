@@ -33,6 +33,7 @@ Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-vinegar'
 "Plug 'tpope/vim-obsession'
 
 "Use brookhong's fork of nerdtree until scrooloose integrates bugfix
@@ -44,6 +45,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'airblade/vim-gitgutter'
 Plug 'kien/ctrlp.vim'
 Plug 'flazz/vim-colorschemes'			
 Plug 'raimondi/delimitmate'			
@@ -162,6 +164,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 "Line numbers
 set nu
+set rnu
 set hidden
 set cursorline
 set nolist
@@ -171,7 +174,7 @@ set modelines=1
 let g:indent_guides_enable_on_vim_startup = 1
 
 "Keep cursor vertically centered
-set so=9999
+"set so=9999
 
 "Change the cursor to a block shape in terminal
 let &t_ti.="\e[1 q"
@@ -183,10 +186,6 @@ let &t_te.="\e[0 q"
 colorscheme jellybeans
 hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow
 hi CursorLine ctermbg=236
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 "}}}
 "AUTOMAGIC {{{
@@ -255,7 +254,7 @@ endif
 "}}}
 "NERD TREE {{{
 
-let NERDTreeShowHidden=1
+"let NERDTreeShowHidden=1
 
 "}}}
 "PEEKABOO {{{
