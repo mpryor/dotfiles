@@ -34,7 +34,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-vinegar'
-"Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
 
 "Use brookhong's fork of nerdtree until scrooloose integrates bugfix
 Plug 'brookhong/nerdtree'
@@ -70,6 +70,21 @@ endif
 Plug 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 call plug#end()            " required
+
+" Detect new plugins and install them
+for [name, spec] in items(g:plugs)
+	if has_key(spec, 'uri')
+		if !isdirectory(spec.dir)
+			echo "New Plugin detected, installing..."
+			:PlugInstall
+		endif
+	else
+		if !isdirectory(spec.dir)
+			echo "New Plugin detected, installing..."
+			:PlugInstall
+		endif
+	endif
+endfor
 
 filetype plugin indent on    " required
 if haveVundleAlready == 0
