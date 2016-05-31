@@ -34,7 +34,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-obsession'
+"Plug 'tpope/vim-obsession'
 
 "Use brookhong's fork of nerdtree until scrooloose integrates bugfix
 Plug 'brookhong/nerdtree'
