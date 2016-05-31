@@ -58,6 +58,8 @@ Plug 'majutsushi/tagbar'
 Plug 'takac/vim-hardtime'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'benmills/vimux'
+Plug 'Valloric/MatchTagAlways'
+
 
 if executable('cmake') 
 	if executable('python')
@@ -172,6 +174,7 @@ set modeline
 set modelines=1
 
 let g:indent_guides_enable_on_vim_startup = 1
+let g:mta_use_matchparen_group = 1
 
 "Keep cursor vertically centered
 "set so=9999
