@@ -1,0 +1,5 @@
+alias projects="cd ~/projects"
+alias xui="cd ~/projects/xtranet-ui"
+alias xapi="cd ~/projects/xtranet-api"
+alias robo="cd ~/projects/robotops/robo-robotops-api"
+alias mindmap="cd ~/projects/mindmap"
