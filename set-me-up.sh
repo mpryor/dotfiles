@@ -1,4 +1,8 @@
 mv .vim ~/
 mv ~/.zshrc ~/
-mv terminator-config ~/.config/terminator/config
-mv vscode-settings.json ~/.config/Code/User/settings.json
+
+rm ~/.config/terminator/config
+cp terminator-config ~/.config/terminator/config
+
+rm ~/.config/Code/User/settings.json
+cp vscode-settings.json ~/.config/Code/User/settings.json
