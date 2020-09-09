@@ -1,57 +1,64 @@
-export ZSH=/Users/mattpryor/.oh-my-zsh
-plugins=(git history-substring-search zsh-syntax-highlighting tmuxinator brew)
-ZSH_THEME="af-magic"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+# Set editor to vi
+export EDITOR="vi"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=** l:|=*' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=** l:|=*' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=* r:|=* l:|=*' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=* r:|=* l:|=*'
-zstyle :compinstall filename '/Users/mattpryor/.zshrc'
-
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=10000
-setopt appendhistory autocd extendedglob nomatch notify correct histignoredups
-
-#setopt globdots
-
-# End of lines configured by zsh-newuser-install
-#
-
-alias dirs="dirs -v"
-alias ls="ls -alG"
-
+# Set command line to VI
 set -o vi
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/mattpryor/scripts:/Users/mattpryor/scripts:/Users/mattpryor/Applications/mongodb/bin:/Applications/Couchbase Server.app/Contents/Resources/couchbase-core/bin"
-export EDITOR='vim'
-export DISABLE_AUTO_TITLE=true
+#--------------------------------------
+#   General Alias
+#--------------------------------------
+alias edit='code'
+alias dirs="dirs -pv"
+alias reload="source ~/.zshrc"
+alias gs="git status"
+alias ls="ls -alh --color=auto"
+alias git="hub"
 
-source ~/scripts/aliases
-source ~/scripts/load_configs
-
-muxstart () {
-	tmuxprojs=$(mux l | grep -v "tmuxinator projects:")
-
-	setopt shwordsplit
-	for word in $tmuxprojs; do
-		mux start $word & 
-	done
-	unsetopt shwordsplit
-	wait;
-
-	firstsession=$(tmux ls | head -1 | awk '{print $1}' | sed 's/://g')
-	echo $firstsession
-
-	tmux attach-session -t $firstsession
-}
+#--------------------------------------
+#   FASD Aliases
+#--------------------------------------
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
+alias v='f -e vim' # quick opening files with vim
 
 
-#muxstart() {
-	#mux start configs & mux start mindmap & wait; tmux attach-session -t configs
-#}
-#
+# Initialize fasd
+eval "$(fasd --init auto)"
+
+# FZF keybindings/completion
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
+# Use aws autocompletion
+complete -C '/usr/bin/aws_completer' aws
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+## SECRET EXPORTS
+source ~/.secrets

@@ -1,4 +1,0 @@
-cd ~/projects/xtranet-ui
-npm run start-dev &
-cd ~/projects/xtranet-api
-npm run start-dev &
