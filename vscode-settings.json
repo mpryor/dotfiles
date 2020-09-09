@@ -1,0 +1,13 @@
+{
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.zoomLevel": 1,
+  "editor.fontSize": 16,
+  "editor.fontFamily": "'FiraCode Nerd Font'",
+  "terminal.integrated.fontFamily": "monospace",
+  "editor.fontLigatures": true,
+  "files.autoSave": "onFocusChange",
+  "editor.lineNumbers": "relative"
+}

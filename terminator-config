@@ -1,0 +1,20 @@
+[global_config]
+[keybindings]
+  page_up = Page_Up
+  page_down = Page_Down
+[profiles]
+  [[default]]
+    background_color = "#002b36"
+    cursor_color = "#aaaaaa"
+    font = SauceCodePro Nerd Font Mono Heavy 16
+    foreground_color = "#839496"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]
