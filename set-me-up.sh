@@ -20,6 +20,10 @@ cp .zshrc ~/
 remove_if_exists ~/.p10k.zsh
 cp .p10k.zsh ~/
 
+# Install gitconfig
+remove_if_exists ~/.gitconfig
+cp .gitconfig ~/
+
 remove_if_exists ~/.config/terminator/config
 if [ ! -d ~/.config/terminator ]; then
 	mkdir -p ~/.config/terminator
