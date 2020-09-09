@@ -1,0 +1,2 @@
+echo 'vim.vim'
+set foldmethod=marker

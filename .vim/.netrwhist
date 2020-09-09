@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/matt/git/ansible-playbooks/roles/install-hub/tasks'
+let g:netrw_dirhist_3='/home/matt/git/ansible-playbooks/roles/install-hub'
+let g:netrw_dirhist_2='/home/matt/git/ansible-playbooks/roles/install-hub/tasks'
+let g:netrw_dirhist_1='/home/matt/git/ansible-playbooks/roles/install-hub'
+let g:netrw_dirhist_0='/home/matt/git/ansible-playbooks/roles/install-zsh/tasks'
+let g:netrw_dirhist_9='/home/matt/git/ansible-playbooks/roles/install-zsh'
+let g:netrw_dirhist_8='/home/matt/git/ansible-playbooks/roles/install-visual-studio/tasks'
+let g:netrw_dirhist_7='/home/matt/git/ansible-playbooks/roles/install-visual-studio'
+let g:netrw_dirhist_6='/home/matt/ansible-playbooks/roles/install-visual-studio/tasks'
+let g:netrw_dirhist_5='/home/matt/ansible-playbooks/roles/install-visual-studio'

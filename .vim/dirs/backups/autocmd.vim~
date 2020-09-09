@@ -1,0 +1,6 @@
+augroup vimrcEx "{{{
+  au!
+  " Automatically load .vimrc changes
+  autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+augroup END "}}}
+

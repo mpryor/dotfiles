@@ -1,0 +1,28 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   set-me-up.sh
+#
+# ------------------------ >8 ------------------------
+# Do not modify or remove the line above.
+# Everything below it will be ignored.
+diff --git a/set-me-up.sh b/set-me-up.sh
+index 06f59c9..8ab6cd4 100755
+--- a/set-me-up.sh
++++ b/set-me-up.sh
+@@ -1,4 +1,8 @@
+ mv .vim ~/
+ mv ~/.zshrc ~/
+-mv terminator-config ~/.config/terminator/config
+-mv vscode-settings.json ~/.config/Code/User/settings.json
++
++rm ~/.config/terminator/config
++cp terminator-config ~/.config/terminator/config
++
++rm ~/.config/Code/User/settings.json
++cp vscode-settings.json ~/.config/Code/User/settings.json
