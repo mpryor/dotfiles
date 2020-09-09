@@ -9,7 +9,7 @@ remove_if_exists() {
 }
 
 remove_if_exists ~/.vim
-mv .vim ~/
+cp -r .vim ~/
 
 remove_if_exists ~/.zshrc
 cp .zshrc ~/
