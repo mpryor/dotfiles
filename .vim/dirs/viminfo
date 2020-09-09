@@ -20,6 +20,10 @@
 $
 
 # Command Line History (newest to oldest):
+:PlugInstall
+|2,0,1599677274,,"PlugInstall"
+:PlugClean 
+|2,0,1599677270,,"PlugClean "
 :wqa
 |2,0,1599676445,,"wqa"
 :w
@@ -40,8 +44,6 @@ $
 |2,0,1599659889,,"colorscheme jellybeans"
 :colorscheme jelleybeans
 |2,0,1599659731,,"colorscheme jelleybeans"
-:PlugInstall
-|2,0,1599659691,,"PlugInstall"
 :PlugClean
 |2,0,1599659686,,"PlugClean"
 :qa
@@ -851,7 +853,7 @@ $
 
 # Input Line History (newest to oldest):
 @y
-|2,3,1599659688,,"y"
+|2,3,1599677271,,"y"
 @n
 |2,3,1599659602,,"n"
 @autoload
@@ -916,28 +918,34 @@ $
 # global variables:
 
 # File marks:
-'0  1  54  ~/dotfiles/.git/COMMIT_EDITMSG
-|4,48,1,54,1599676445,"~/dotfiles/.git/COMMIT_EDITMSG"
-'1  5  0  ~/dotfiles/set-me-up.sh
-|4,49,5,0,1599676434,"~/dotfiles/set-me-up.sh"
-'2  1  47  ~/dotfiles/.git/COMMIT_EDITMSG
-|4,50,1,47,1599676385,"~/dotfiles/.git/COMMIT_EDITMSG"
-'3  1  0  ~/dotfiles/set-me-up.sh
-|4,51,1,0,1599676376,"~/dotfiles/set-me-up.sh"
+'0  25  0  /tmp/dotfiles/[Plugins]
+|4,48,25,0,1599677284,"/tmp/dotfiles/[Plugins]"
+'1  1  54  ~/dotfiles/.git/COMMIT_EDITMSG
+|4,49,1,54,1599676445,"~/dotfiles/.git/COMMIT_EDITMSG"
+'2  5  0  ~/dotfiles/set-me-up.sh
+|4,50,5,0,1599676434,"~/dotfiles/set-me-up.sh"
+'3  1  47  ~/dotfiles/.git/COMMIT_EDITMSG
+|4,51,1,47,1599676385,"~/dotfiles/.git/COMMIT_EDITMSG"
 '4  1  0  ~/dotfiles/set-me-up.sh
 |4,52,1,0,1599676376,"~/dotfiles/set-me-up.sh"
-'5  13  0  ~/dotfiles/terminator-config
-|4,53,13,0,1599676354,"~/dotfiles/terminator-config"
-'6  64  0  ~/zshconfig/.zshrc
-|4,54,64,0,1599671057,"~/zshconfig/.zshrc"
-'7  1  0  ~/zshconfig/.vimrc
-|4,55,1,0,1599671049,"~/zshconfig/.vimrc"
-'8  64  0  ~/.zshrc
-|4,56,64,0,1599670949,"~/.zshrc"
-'9  1  0  ~/.vimrc
-|4,57,1,0,1599670940,"~/.vimrc"
+'5  1  0  ~/dotfiles/set-me-up.sh
+|4,53,1,0,1599676376,"~/dotfiles/set-me-up.sh"
+'6  13  0  ~/dotfiles/terminator-config
+|4,54,13,0,1599676354,"~/dotfiles/terminator-config"
+'7  64  0  ~/zshconfig/.zshrc
+|4,55,64,0,1599671057,"~/zshconfig/.zshrc"
+'8  1  0  ~/zshconfig/.vimrc
+|4,56,1,0,1599671049,"~/zshconfig/.vimrc"
+'9  64  0  ~/.zshrc
+|4,57,64,0,1599670949,"~/.zshrc"
 
 # Jumplist (newest first):
+-'  25  0  /tmp/dotfiles/[Plugins]
+|4,39,25,0,1599677284,"/tmp/dotfiles/[Plugins]"
+-'  2  0  /tmp/dotfiles/[Plugins]
+|4,39,2,0,1599677282,"/tmp/dotfiles/[Plugins]"
+-'  5  0  /tmp/dotfiles/[Plugins]
+|4,39,5,0,1599677282,"/tmp/dotfiles/[Plugins]"
 -'  1  54  ~/dotfiles/.git/COMMIT_EDITMSG
 |4,39,1,54,1599676445,"~/dotfiles/.git/COMMIT_EDITMSG"
 -'  5  0  ~/dotfiles/set-me-up.sh
@@ -1092,12 +1100,6 @@ $
 |4,39,64,0,1599671057,"~/zshconfig/.zshrc"
 -'  64  0  ~/zshconfig/.zshrc
 |4,39,64,0,1599671057,"~/zshconfig/.zshrc"
--'  1  0  ~/zshconfig/.zshrc
-|4,39,1,0,1599671051,"~/zshconfig/.zshrc"
--'  1  0  ~/zshconfig/.zshrc
-|4,39,1,0,1599671051,"~/zshconfig/.zshrc"
--'  1  0  ~/zshconfig/.zshrc
-|4,39,1,0,1599671051,"~/zshconfig/.zshrc"
 -'  1  0  ~/zshconfig/.zshrc
 |4,39,1,0,1599671051,"~/zshconfig/.zshrc"
 -'  1  0  ~/zshconfig/.zshrc
