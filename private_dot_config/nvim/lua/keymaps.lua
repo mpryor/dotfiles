@@ -19,6 +19,19 @@ set('n', '<Leader>p', telescope.find_files, { desc = "Telescope find files" })
 set('n', '<Leader>b', telescope.buffers, { desc = "Telescope current [b]uffers" })
 set('n', '\\', telescope.live_grep, { desc = "Telescope live grep [\\]" })
 
+-- Flash bindings (like easymotion)
+local flash = require("flash")
+local function jumpline()
+    flash.jump({
+      jump = { register = false },
+      search = { mode = "search", max_length = 0},
+      label = { after = { 0, 0 } },
+      continue=false,
+      pattern = "^"
+    })
+end
+set('n', '<Leader><Leader>', jumpline, { desc = "quickly jump to a line" })
+
 -- LSP bindings
 set('n', 'gd', telescope.lsp_definitions, { desc = '[G]oto [d]efinition' })
 set('n', 'gr', telescope.lsp_references, { desc = '[G]oto [r]eferences' })

@@ -1,4 +1,4 @@
---" Mapleader needs to be set before plugins are loaded
+-- Mapleader needs to be set before plugins are loaded
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -17,8 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-	require 'plugins',
-	require 'lsp'
+	import='plugins'
 }, {
 	change_detection = {
 		notify = false,
