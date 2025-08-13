@@ -115,6 +115,8 @@ return {
       local servers = {
         ruff = {},
         pyright = {},
+        gopls = {},
+        clangd ={},
         bashls = {},
         lua_ls = {
           settings = {

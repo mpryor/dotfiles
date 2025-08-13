@@ -1,7 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
-  "blink.cmp": { "branch": "main", "commit": "2665197779e3ba4db58a91dbffac0026b9fcc2e9" },
-  "fidget.nvim": { "branch": "main", "commit": "6ada5b6b802e15f49d3142172f590bde652347ba" },
+  "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
+  "fidget.nvim": { "branch": "main", "commit": "2cb5edb2dd6700a958a446b20bb2be04d318da9d" },
   "flash.nvim": { "branch": "main", "commit": "3c942666f115e2811e959eabbdd361a025db8b63" },
   "friendly-snippets": { "branch": "main", "commit": "572f5660cf05f8cd8834e096d7b4c921ba18e175" },
   "guess-indent.nvim": { "branch": "main", "commit": "84a4987ff36798c2fc1169cbaff67960aed9776f" },
@@ -22,5 +22,5 @@
   "vim-rel-jump": { "branch": "master", "commit": "10e0e9d2a39091634e9f46516b093a3071c6fda3" },
   "vim-vinegar": { "branch": "master", "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" },
-  "yazi.nvim": { "branch": "main", "commit": "712ae1a6adf45caf073d90bead00c5323bed5f76" }
+  "yazi.nvim": { "branch": "main", "commit": "74460dc4533bde424983702f1257df420455eebe" }
 }
