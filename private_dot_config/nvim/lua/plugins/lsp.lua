@@ -114,7 +114,7 @@ return {
 
       local servers = {
         ruff = {},
-        pyright = {},
+        basedpyright = {}, -- better fork of pyright, includes type hints, import completion, etc
         gopls = {},
         clangd ={},
         bashls = {},
