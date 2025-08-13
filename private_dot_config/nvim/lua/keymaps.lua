@@ -19,9 +19,7 @@ set('n', '<Leader>p', telescope.find_files, { desc = "Telescope find files" })
 set('n', '<Leader>b', telescope.buffers, { desc = "Telescope current [b]uffers" })
 set('n', '\\', telescope.live_grep, { desc = "Telescope live grep [\\]" })
 
--- Flash bindings (like easymotion)
-local flash = require('flash')
-
+-- LSP bindings
 set('n', 'gd', telescope.lsp_definitions, { desc = '[G]oto [d]efinition' })
 set('n', 'gr', telescope.lsp_references, { desc = '[G]oto [r]eferences' })
 set('n', 'gO', telescope.lsp_document_symbols, { desc = 'Open Document Symbols' })
@@ -32,4 +30,6 @@ set('n', 'grn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
 set('n', 'gra', vim.lsp.buf.code_action, { desc = '[G]oto Code [A]ction' })
 set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat' })
 
-set('t', '<ESC>', '<C-\\><C-n>', { desc = '[F]ormat' })
+-- Uncategorized
+set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
+set('v', 'p', 'pgvy', { desc='Paste without overwriting register'})
