@@ -31,6 +31,7 @@ local function jumpline()
     })
 end
 set('n', '<Leader><Leader>', jumpline, { desc = "quickly jump to a line" })
+set({'n', 'x', 'o'}, 'S', flash.treesitter, { desc = "Flash treesitter" })
 
 -- LSP bindings
 set('n', 'gd', telescope.lsp_definitions, { desc = '[G]oto [d]efinition' })
@@ -42,6 +43,27 @@ set('n', 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
 set('n', 'grn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
 set('n', 'gra', vim.lsp.buf.code_action, { desc = '[G]oto Code [A]ction' })
 set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat' })
+
+-- Debugging
+local dap = require("dap")
+local dapui = require("dapui")
+
+local function start_debug()
+  dap.continue()
+  dapui.open()
+end
+
+local function stop_debug()
+  dap.terminate()
+  dapui.close()
+end
+
+set('n', '<leader>ds', start_debug, { desc = "Start debugging" })
+set('n', '<leader>dd', stop_debug, { desc = "Toggle breakpoint" })
+set('n', '<leader>db', dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+set('n', '<F5>', dap.continue, { desc = "Continue" }) -- technically duplicative of <leader>ds
+set('n', '<F10>', dap.step_over, { desc = "Step over" })
+set('n', '<F11>', dap.step_into, { desc = "Step into" })
 
 -- Uncategorized
 set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
