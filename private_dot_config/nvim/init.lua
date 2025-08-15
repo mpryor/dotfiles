@@ -27,3 +27,4 @@ require('lazy').setup({
 -- import local lua files --
 require 'keymaps'
 require 'options'
+require 'autocommands'
