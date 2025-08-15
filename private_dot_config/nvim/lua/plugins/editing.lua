@@ -11,7 +11,7 @@ return {
     },
     { -- Completion plugin with LSP support
         'saghen/blink.cmp',
-        dependencies = { 'rafamadriz/friendly-snippets' },
+        dependencies = { 'rafamadriz/friendly-snippets', 'folke/lazydev.nvim' },
         version = '1.*',
         opts = {
             -- See :h blink-cmp-config-keymap for defining your own keymap
@@ -22,7 +22,14 @@ return {
             },
             completion = { documentation = { auto_show = true } },
             sources = {
-                default = { 'lsp', 'path', 'snippets', 'buffer' },
+                default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer'},
+                providers = {
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
+                    }
+                }
             },
             fuzzy = { implementation = "prefer_rust_with_warning" }
         },

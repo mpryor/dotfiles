@@ -1,4 +1,7 @@
 return {
+    {
+        "tpope/vim-fugitive"
+    },
     { -- Integration with external program, lazygit
         "kdheepak/lazygit.nvim",
         lazy = true,

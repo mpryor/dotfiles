@@ -7,6 +7,7 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.list = true
 vim.o.undofile = true
+vim.o.cursorline = true
 
 -- Customize debugging colors and icons
 vim.cmd("hi DapBreakpointColor guifg=#fa4848")
