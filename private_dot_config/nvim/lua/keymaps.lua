@@ -19,7 +19,8 @@ set("n", "<C-w>o", function() zen.toggle({window = {width=1}}) end, {desc = "Tog
 
 -- Telescope bindings
 local telescope = require('telescope.builtin')
-set('n', '<Leader>p', telescope.find_files, { desc = "Telescope find files" })
+local telescope_extensions = require('telescope').extensions
+set('n', '<Leader>p', telescope_extensions.smart_open.smart_open, { desc = "Telescope find files" })
 set('n', '<Leader>b', telescope.buffers, { desc = "Telescope current [b]uffers" })
 set('n', '\\', telescope.live_grep, { desc = "Telescope live grep [\\]" })
 
