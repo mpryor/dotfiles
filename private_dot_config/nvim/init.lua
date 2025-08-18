@@ -28,3 +28,4 @@ require('lazy').setup({
 require 'keymaps'
 require 'options'
 require 'autocommands'
+require 'commands'

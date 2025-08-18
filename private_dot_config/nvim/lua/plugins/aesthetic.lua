@@ -1,11 +1,4 @@
 return {
-    { 
-        "nvim-tree/nvim-web-devicons",
-        opts = {},
-        config = function() 
-            require("nvim-web-devicons").setup()
-        end
-    },
     { -- Colorscheme plugin
         'folke/tokyonight.nvim',
         priority = 1000,

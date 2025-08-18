@@ -72,3 +72,4 @@ set('n', '<F11>', dap.step_into, { desc = "Step into" })
 -- Uncategorized
 set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
 set('v', 'p', 'pgvy', { desc='Paste without overwriting register'})
+set('n', '<Leader>R', ':vsplit | startinsert | term ', { desc='Start a vsplit in terminal mode with the input command'})
