@@ -36,7 +36,8 @@ return {
     {
         "akinsho/toggleterm.nvim", config=function()
             require("toggleterm").setup({
-                open_mapping = "<leader>\\"
+                open_mapping = "<leader>\\",
+                insert_mappings = false
             })
         end
     },

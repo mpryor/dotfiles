@@ -1,0 +1,12 @@
+{
+    "try/except": {
+        "prefix": "tryme",
+        "body": [
+            "try: ",
+            "\t${1:pass}",
+            "except ${2: Exception} as ${3:e}",
+            "\t${4: raise ${3:e}}"
+        ],
+        "description": "try/except blocks"
+    }
+}

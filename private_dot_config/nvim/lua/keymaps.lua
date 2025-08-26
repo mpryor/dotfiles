@@ -166,7 +166,7 @@ vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 -- Uncategorized
 set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
-set('v', 'p', 'pgvy', { desc = 'Paste without overwriting register' })
+set('x', 'p', 'pgvy', { desc = 'Paste without overwriting register' })
 set('n', '<Leader>R', ':vsplit | startinsert | term ',
   { desc = 'Start a vsplit in terminal mode with the input command' })
 set("n", "J", "mzJ`z")
