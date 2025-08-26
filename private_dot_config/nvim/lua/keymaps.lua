@@ -14,6 +14,12 @@ set("n", "<Leader>O", "<C-w>O", { desc = "Focus on current buffer" })
 set("n", "<Leader>cd", ":cd %:p:h<CR>", { desc = "Change working directory to current buffer's path" })
 set("n", "<Leader>w", ":w!<CR>", { desc = "Save current buffer" })
 
+-- Tab management
+set("n", "<Leader>tc", ":tabclose<CR>", { desc = "Close current tab" })   -- Mainly useful for git difftool
+set("n", "<Leader>to", ":tabonly<CR>", { desc = "Close all other tabs" }) -- Mainly useful for git difftool
+set("n", "]t", ":tabnext<CR>", { desc = "Go to next tab" })               -- I don't see ctags in my future
+set("n", "[t", ":tabprev<CR>", { desc = "Go to previous tab" })           -- I don't see ctags in my future
+
 local zen = require("zen-mode")
 set("n", "<C-w>o", function() zen.toggle({window = {width=1}}) end, {desc = "Toggle zen mode"})
 
