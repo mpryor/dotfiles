@@ -61,20 +61,6 @@ return {
     {                                    -- The ultimate "finder"/picker
         "nvim-telescope/telescope.nvim", -- see ../keymaps.lua
     },
-    {                  -- File navigation with external program, Yazi
-        "mikavilpas/yazi.nvim",
-        version = "*", -- use the latest stable version
-        event = "VeryLazy",
-        dependencies = {
-            { "nvim-lua/plenary.nvim", lazy = true },
-        },
-        keys = {
-            {
-                "<leader>-",
-                mode = { "n", "v" },
-                "<cmd>Yazi<cr>",
-                desc = "Open yazi at the current file",
-            },
         },
     },
 }
