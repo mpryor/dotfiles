@@ -26,6 +26,7 @@ set("n", "<C-w>o", function() zen.toggle({window = {width=1}}) end, {desc = "Tog
 -- Telescope bindings
 local telescope = require('telescope.builtin')
 local telescope_extensions = require('telescope').extensions
+local session_picker = require('auto-session.pickers.telescope')
 set('n', '<Leader>p', telescope.find_files, { desc = "Telescope find files" })
 set('n', '<Leader>P', telescope_extensions.smart_open.smart_open, { desc = "Telescope smart open" })
 set('n', '<Leader>b', telescope.buffers, { desc = "Telescope current [b]uffers" })
@@ -34,6 +35,7 @@ set('n', '<Leader>fc', telescope.commands, { desc = "Telescope find commands" })
 set('n', '<Leader>fh', telescope.help_tags, { desc = "Telescope find help" })
 set('n', '<Leader>fk', telescope.keymaps, { desc = "Telescope find keymaps" })
 set('n', '<Leader>ff', telescope.builtin, { desc = "Telescope pickers" })
+set('n', '<Leader>fs', session_picker.open_session_picker, { desc = "Telescope find sessions" })
 set('n', '\\', telescope.live_grep, { desc = "Telescope live grep [\\]" })
 
 -- Flash bindings (like easymotion)

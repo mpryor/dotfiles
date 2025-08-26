@@ -1,4 +1,38 @@
 return {
+    { -- simple, automatic session management
+        "rmagatti/auto-session",
+        lazy = false,
+        opts = {
+        },
+        config = function()
+            require("auto-session").setup({
+                -- save shada when we save a session - Why is this not default behavior??
+                post_save_cmds = {
+                    function()
+                        local autosession = require('auto-session')
+                        local cwd_hash = vim.fn.sha256(vim.fn.getcwd())
+                        local shada_file_name = autosession.get_root_dir() .. cwd_hash .. '.shada'
+                        vim.cmd('wshada! ' .. shada_file_name:gsub('%%', '\\%%'))
+                    end,
+                },
+                -- load shada when loading session - Why is this not default behavior??
+                post_restore_cmds = {
+                    function()
+                        local autosession = require('auto-session')
+                        local cwd_hash = vim.fn.sha256(vim.fn.getcwd())
+                        local shada_file_name = autosession.get_root_dir() .. cwd_hash .. '.shada'
+                        if vim.fn.filereadable(shada_file_name) == 1 then vim.cmd('rshada! ' ..
+                            shada_file_name:gsub('%%', '\\%%')) end
+                    end,
+                },
+                session_lens = {
+                    mappings = {
+                        delete_session = { "n", "dd" }
+                    }
+                }
+            })
+        end
+    },
     {
         "folke/lazydev.nvim",
         ft = "lua",

@@ -9,6 +9,10 @@ vim.o.list = true
 vim.o.undofile = true
 vim.o.cursorline = true
 vim.o.splitright = true
+vim.o.ignorecase = true
+
+vim.g.no_python_maps = true
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions" -- Recommended settings for auto-session
 
 -- Customize debugging colors and icons
 vim.cmd("hi DapBreakpointColor guifg=#fa4848")

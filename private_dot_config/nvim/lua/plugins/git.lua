@@ -1,5 +1,4 @@
 return {
-    {
     { -- The classic - manage everything Git while in vim
         "tpope/vim-fugitive"
     },
