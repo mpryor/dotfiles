@@ -34,6 +34,13 @@ return {
         end
     },
     {
+        "akinsho/toggleterm.nvim", config=function()
+            require("toggleterm").setup({
+                open_mapping = "<leader>\\"
+            })
+        end
+    },
+    { -- LSP integration for lazy config
         "folke/lazydev.nvim",
         ft = "lua",
         opts = {

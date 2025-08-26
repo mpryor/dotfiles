@@ -14,6 +14,12 @@ set("n", "<Leader>O", "<C-w>O", { desc = "Focus on current buffer" })
 set("n", "<Leader>cd", ":cd %:p:h<CR>", { desc = "Change working directory to current buffer's path" })
 set("n", "<Leader>w", ":w!<CR>", { desc = "Save current buffer" })
 
+-- Terminal keymaps
+set('t', '<C-h>', [[<Cmd>wincmd h<CR>]])
+set('t', '<C-j>', [[<Cmd>wincmd j<CR>]])
+set('t', '<C-k>', [[<Cmd>wincmd k<CR>]])
+set('t', '<C-l>', [[<Cmd>wincmd l<CR>]])
+
 -- Tab management
 set("n", "<Leader>tc", ":tabclose<CR>", { desc = "Close current tab" })   -- Mainly useful for git difftool
 set("n", "<Leader>to", ":tabonly<CR>", { desc = "Close all other tabs" }) -- Mainly useful for git difftool
@@ -112,8 +118,8 @@ local function start_debug()
 end
 
 local function stop_debug()
-  dap.terminate()
   dapui.close()
+  dap.terminate()
 end
 
 set('n', '<leader>ds', start_debug, { desc = "Start debugging" })
