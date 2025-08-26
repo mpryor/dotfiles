@@ -1,4 +1,5 @@
 return {
+    { "tpope/vim-surround" }, -- Simple motions to surround textObjects
     {
         "gbprod/yanky.nvim", -- Paste management
         config = function ()
@@ -7,6 +8,12 @@ return {
     },
     {                         -- Focus mode
         "folke/zen-mode.nvim",
+    },
+    {
+        "windwp/nvim-autopairs", -- Autopairs support
+        config = function()
+            require("nvim-autopairs").setup({})
+        end
     },
     { -- Basic comment motion support
         'numToStr/Comment.nvim',
