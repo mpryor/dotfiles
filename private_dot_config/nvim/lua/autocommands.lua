@@ -4,3 +4,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     vim.cmd("cd ~/.config/nvim")
   end,
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
