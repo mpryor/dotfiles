@@ -25,20 +25,23 @@ return {
             })
         end
     },
+    'buztard/vim-rel-jump',  -- Adds {count} motions to jumplist
+    {                        -- New motions for quick navigation
         "folke/flash.nvim",
         event = "VeryLazy",
         ---@type Flash.Config
         opts = {
+            labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             jump = {
                 history = true,
                 register = true,
             },
             modes = {
                 char = {
-                    jump_labels = false
+                    jump_labels = true
                 },
                 search = {
-                    enabled = true
+                    enabled = true,
                 }
             },
             continue = true
