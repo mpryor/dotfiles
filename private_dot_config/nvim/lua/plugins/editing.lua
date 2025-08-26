@@ -1,5 +1,11 @@
 return {
-    { -- Focus mode
+    {
+        "gbprod/yanky.nvim", -- Paste management
+        config = function ()
+            require("yanky").setup()
+        end
+    },
+    {                         -- Focus mode
         "folke/zen-mode.nvim",
     },
     { -- Basic comment motion support

@@ -28,7 +28,7 @@ set("n", "]t", ":tabnext<CR>", { desc = "Go to next tab" })               -- I d
 set("n", "[t", ":tabprev<CR>", { desc = "Go to previous tab" })           -- I don't see ctags in my future
 
 local zen = require("zen-mode")
-set("n", "<C-w>o", function() zen.toggle({window = {width=1}}) end, {desc = "Toggle zen mode"})
+set("n", "<C-w>o", function() zen.toggle({ window = { width = 1 } }) end, { desc = "Toggle zen mode" })
 
 -- Telescope bindings
 local telescope = require('telescope.builtin')
@@ -154,6 +154,15 @@ set("v", "<A-right>", ">gv")
 set("n", "<A-right>", ">>")
 set("v", "<A-left>", "<gv")
 set("n", "<A-left>", "<<")
+
+-- Yanky
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 -- Uncategorized
 set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
