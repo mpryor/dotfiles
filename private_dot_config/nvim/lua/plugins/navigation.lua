@@ -1,7 +1,30 @@
 return {
     'tpope/vim-vinegar',    -- NetRW enhancements (hit - in normal mode)
     'buztard/vim-rel-jump', -- Adds {count} motions to jumplist
-    {                       -- New motions for quick navigation
+    { -- Persistent bookmarks, scoped by directory, repo, branch, etc
+        "cbochs/grapple.nvim",
+        opts = {
+        },
+        event = { "BufReadPost", "BufNewFile" },
+        cmd = "Grapple",
+        keys = {
+            { "<leader>m", "<cmd>Grapple toggle<cr>",          desc = "Grapple toggle tag" },
+            { "';",        "<cmd>Grapple toggle_tags<cr>",     desc = "Grapple open tags window" },
+            { "]]",        "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
+            { "[[",        "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
+        },
+        config = function()
+            require('grapple').setup({
+                scope = "cwd",
+                default_scopes = {
+                    lsp = { hidden = true },
+                    git_branch = { hidden = true },
+                    static = { hidden = true },
+                    git = { hidden = true },
+                },
+            })
+        end
+    },
         "folke/flash.nvim",
         event = "VeryLazy",
         ---@type Flash.Config
