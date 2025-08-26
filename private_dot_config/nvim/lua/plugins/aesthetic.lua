@@ -11,12 +11,6 @@ return {
             vim.cmd.colorscheme 'tokyonight-night'
         end,
     },
-    { -- Integration with lualine to show code context from LSP
-        'SmiteshP/nvim-navic',
-        config = function()
-            require('nvim-navic').setup({ lsp = { auto_attach = true } })
-        end
-    },
     { -- Statusline plugin
         'nvim-lualine/lualine.nvim',
         dependencies = 'nvim-tree/nvim-web-devicons',
@@ -28,9 +22,29 @@ return {
             })
         end,
     },
+    { -- Integration with lualine to show code context from LSP
+        'SmiteshP/nvim-navic',
+        config = function()
+            require('nvim-navic').setup({ lsp = { auto_attach = true } })
+        end
+    },
+    {
+        "echasnovski/mini.indentscope",
+        config = function()
+            local is = require("mini.indentscope")
+            is.setup({
+                draw = {
+                    animation = is.gen_animation.none()
+                }
+            })
+        end
+    },
     { -- View marks in gutter
         "chentoast/marks.nvim",
         event = "VeryLazy",
         opts = {},
+        config = function()
+            require('marks').setup()
+        end
     },
 }
