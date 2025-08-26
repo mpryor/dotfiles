@@ -55,6 +55,7 @@ return {
             require("oil").setup({})
         end
     },
+    { "mbbill/undotree" }, -- A nice way to explore the undo tree
     {                      -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
