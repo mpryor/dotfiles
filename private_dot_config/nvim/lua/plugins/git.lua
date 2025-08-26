@@ -1,28 +1,10 @@
 return {
     {
+    { -- The classic - manage everything Git while in vim
         "tpope/vim-fugitive"
     },
-    { -- Integration with external program, lazygit
-        "kdheepak/lazygit.nvim",
-        lazy = true,
-        cmd = {
-            "LazyGit",
-            "LazyGitConfig",
-            "LazyGitCurrentFile",
-            "LazyGitFilter",
-            "LazyGitFilterCurrentFile",
-        },
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        -- setting the keybinding for LazyGit with 'keys' is recommended in
-        -- order to load the plugin when the command is run for the first time
-        keys = {
-            { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
-        }
-    },
-    { -- A potentially useful tool for resolving conflicts... might delete
+    { "lewis6991/gitsigns.nvim" }, -- Show git information in the sign column (and more)
+    { -- Open merge conflict files with vim - easy resolution and hunk jumping
         "akinsho/git-conflict.nvim",
         lazy = false,
         --tag = "v2.1.0",

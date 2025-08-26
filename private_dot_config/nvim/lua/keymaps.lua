@@ -70,6 +70,19 @@ set('n', '<F5>', dap.continue, { desc = "Continue" }) -- technically duplicative
 set('n', '<F10>', dap.step_over, { desc = "Step over" })
 set('n', '<F11>', dap.step_into, { desc = "Step into" })
 
+-- Git
+set("n", "<Leader>gs", ":Git<CR>", { desc = "[G]it [S]tatus" })
+set("n", "<Leader>gd", ":Git difftool -y<CR>", { desc = "[G]it [D]ifftool" })
+set("n", "<Leader>gD", ":Git difftool -y HEAD<CR>", { desc = "[G]it [D]ifftool" })
+set("n", "<Leader>ga.", ":Git add .<CR>", { desc = "[G]it [a]dd [.]" })
+set("n", "<Leader>gaa", ":Git add %<CR>", { desc = "[G]it [a]dd current file" })
+set("n", "<Leader>gc", ":Git commit -v<CR>", { desc = "[G]it [c]ommit" })
+set("n", "<Leader>gp", ":Git push origin<CR>", { desc = "[G]it [p]ush" })
+set("n", "<Leader>gb", ":Gitsigns blame<CR>", { desc = "[G]it [b]lame" })
+set("n", "ga", ":Gitsigns stage_hunk<CR>", { desc = "[G]it [add] hunk" })
+set("n", "]h", ":Gitsigns next_hunk<CR>", { desc = "Next hunk" })
+set("n", "[h", ":Gitsigns prev_hunk<CR>", { desc = "Previous hunk" })
+
 -- Uncategorized
 set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
 set('v', 'p', 'pgvy', { desc='Paste without overwriting register'})
