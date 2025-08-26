@@ -1,6 +1,10 @@
 return {
-    'tpope/vim-vinegar',    -- NetRW enhancements (hit - in normal mode)
-    'buztard/vim-rel-jump', -- Adds {count} motions to jumplist
+    { -- Like vinegar
+        "stevearc/oil.nvim",
+        config = function()
+            require("oil").setup({})
+        end
+    },
     { -- Persistent bookmarks, scoped by directory, repo, branch, etc
         "cbochs/grapple.nvim",
         opts = {

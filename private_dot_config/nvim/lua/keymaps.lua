@@ -13,6 +13,7 @@ set("n", "<Leader>o", ":b#<CR>", { desc = "Flip to previous buffer" })
 set("n", "<Leader>O", "<C-w>O", { desc = "Focus on current buffer" })
 set("n", "<Leader>cd", ":cd %:p:h<CR>", { desc = "Change working directory to current buffer's path" })
 set("n", "<Leader>w", ":w!<CR>", { desc = "Save current buffer" })
+set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" }) -- Vinegar-like movement using Oil
 
 -- Terminal keymaps
 set('t', '<C-h>', [[<Cmd>wincmd h<CR>]])
