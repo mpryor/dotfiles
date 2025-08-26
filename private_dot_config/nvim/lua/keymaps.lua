@@ -26,8 +26,14 @@ set("n", "<C-w>o", function() zen.toggle({window = {width=1}}) end, {desc = "Tog
 -- Telescope bindings
 local telescope = require('telescope.builtin')
 local telescope_extensions = require('telescope').extensions
-set('n', '<Leader>p', telescope_extensions.smart_open.smart_open, { desc = "Telescope find files" })
+set('n', '<Leader>p', telescope.find_files, { desc = "Telescope find files" })
+set('n', '<Leader>P', telescope_extensions.smart_open.smart_open, { desc = "Telescope smart open" })
 set('n', '<Leader>b', telescope.buffers, { desc = "Telescope current [b]uffers" })
+set('n', '<Leader>fd', telescope.diagnostics, { desc = "Telescope find diagnostics" })
+set('n', '<Leader>fc', telescope.commands, { desc = "Telescope find commands" })
+set('n', '<Leader>fh', telescope.help_tags, { desc = "Telescope find help" })
+set('n', '<Leader>fk', telescope.keymaps, { desc = "Telescope find keymaps" })
+set('n', '<Leader>ff', telescope.builtin, { desc = "Telescope pickers" })
 set('n', '\\', telescope.live_grep, { desc = "Telescope live grep [\\]" })
 
 -- Flash bindings (like easymotion)
@@ -46,13 +52,13 @@ set({'n', 'x', 'o'}, 'S', flash.treesitter, { desc = "Flash treesitter" })
 
 -- LSP bindings
 set('n', 'gd', telescope.lsp_definitions, { desc = '[G]oto [d]efinition' })
-set('n', 'gr', telescope.lsp_references, { desc = '[G]oto [r]eferences' })
+set('n', 'gr', telescope.lsp_references, { desc = '[G]oto [r]eferences', nowait = true })
 set('n', 'gO', telescope.lsp_document_symbols, { desc = 'Open Document Symbols' })
 set('n', 'gW', telescope.lsp_dynamic_workspace_symbols, { desc = 'Open Workspace Symbols' })
 set('n', 'gi', telescope.lsp_implementations, { desc = '[G]oto [I]mplementation' })
 set('n', 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
-set('n', 'grn', vim.lsp.buf.rename, { desc = '[R]e[n]ame' })
-set('n', 'gra', vim.lsp.buf.code_action, { desc = '[G]oto Code [A]ction' })
+set('n', '<Leader>rn', vim.lsp.buf.rename, { desc = '[r]e[n]ame' })
+set('n', '<Leader>ca', vim.lsp.buf.code_action, { desc = '[c]ode [a]ction' })
 set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat' })
 
 -- Debugging

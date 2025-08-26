@@ -44,23 +44,89 @@ return {
             continue = true
         },
     },
-    { -- A better "recent files"
-        "danielfalk/smart-open.nvim",
+    {                                    -- The ultimate "finder"/picker
+        "nvim-telescope/telescope.nvim", -- see ../keymaps.lua
+        config = function()
+            local actions = require("telescope.actions")
+            local telescope = require("telescope")
+            local telecope_builtin = require("telescope.builtin")
+            local telescope_extensions = require('telescope').extensions
+
+            -- Allows cycling between various pickers
+            local cycle = require("cycle")(telecope_builtin.find_files, telescope_extensions.smart_open.smart_open)
+
+            local function flash(prompt_bufnr)
+                require("flash").jump({
+                    pattern = "^",
+                    label = { after = { 0, 0 } },
+                    search = {
+                        mode = "search",
+                        exclude = {
+                            function(win)
+                                return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
+                            end,
+                        },
+                    },
+                    action = function(match)
+                        local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+                        picker:set_selection(match.pos[1] - 1)
+                    end,
+                })
+            end
+
+            telescope.setup({
+                defaults = {
+                    -- Set "ivy" as default theme
+                    layout_strategy = 'bottom_pane',
+                    layout_config = {
+                        height = 0.6,
+                    },
+                    border = true,
+                    sorting_strategy = "ascending",
+                    --
+                    mappings = {
+                        i = {
+                            ["<C-l>"] = actions.send_to_loclist + actions.open_loclist,
+                            ["<tab>"] = cycle.next,
+                            ["<s-tab>"] = cycle.previous,
+                            ["<leader><leader>"] = flash,
+                        },
+                        n = {
+                            ["s"] = flash
+                        }
+                    }
+                },
+                pickers = {
+                    buffers = {
+                        mappings = {
+                            n = {
+                                ["dd"] = actions.delete_buffer
+                            }
+                        }
+                    }
+                }
+            })
+        end
+    },
+    {
+        "danielfalk/smart-open.nvim", -- A smarter file picker
         branch = "0.2.x",
         config = function()
-            require("telescope").load_extension("smart_open")
+            local telescope = require("telescope")
+            smart_open_extension = telescope.load_extension("smart_open")
+            telescope.setup({
+                extensions = {
+                    smart_open = {
+                        show_scores = true,
+                        match_algorithm = "fzf",
+                        disable_devicons = true,
+                    }
+                }
+            })
         end,
         dependencies = {
             "kkharji/sqlite.lua",
-            -- Only required if using match_algorithm fzf
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-            -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
-            { "nvim-telescope/telescope-fzy-native.nvim" },
-        },
-    },
-    {                                    -- The ultimate "finder"/picker
-        "nvim-telescope/telescope.nvim", -- see ../keymaps.lua
-    },
         },
     },
 }
