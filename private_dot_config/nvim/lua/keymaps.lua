@@ -136,7 +136,25 @@ set("n", "ga", ":Gitsigns stage_hunk<CR>", { desc = "[G]it [add] hunk" })
 set("n", "]h", ":Gitsigns next_hunk<CR>", { desc = "Next hunk" })
 set("n", "[h", ":Gitsigns prev_hunk<CR>", { desc = "Previous hunk" })
 
+-- Move stuff around
+set("n", "<A-up>", ":m -2<CR>==")
+set("n", "<A-down>", ":m +1<CR>==")
+set("v", "<A-up>", ":m -2<CR>gv")
+set("v", "<A-down>", ":m '>+1<CR>gv")
+set("v", ">", ">gv")
+set("v", "<", "<gv")
+set("v", "<A-right>", ">gv")
+set("n", "<A-right>", ">>")
+set("v", "<A-left>", "<gv")
+set("n", "<A-left>", "<<")
+
 -- Uncategorized
 set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
-set('v', 'p', 'pgvy', { desc='Paste without overwriting register'})
-set('n', '<Leader>R', ':vsplit | startinsert | term ', { desc='Start a vsplit in terminal mode with the input command'})
+set('v', 'p', 'pgvy', { desc = 'Paste without overwriting register' })
+set('n', '<Leader>R', ':vsplit | startinsert | term ',
+  { desc = 'Start a vsplit in terminal mode with the input command' })
+set("n", "J", "mzJ`z")
+set('n', '<C-d>', '<C-d>zz', { desc = 'Page down, stay centered' })
+set('n', '<C-u>', '<C-u>zz', { desc = 'Page up, stay centered' })
+set("n", "N", "Nzzzv", { desc = "Keep (prev) search result centered" })
+set("n", "n", "nzzzv", { desc = "Keep (next) search result centered" })
