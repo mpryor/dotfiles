@@ -1,12 +1,12 @@
 return {
     { "tpope/vim-surround" }, -- Simple motions to surround textObjects
     {
-        "gbprod/yanky.nvim", -- Paste management
-        config = function ()
+        "gbprod/yanky.nvim",  -- Paste management
+        config = function()
             require("yanky").setup()
         end
     },
-    {                         -- Focus mode
+    { -- Focus mode
         "folke/zen-mode.nvim",
     },
     {
@@ -21,10 +21,6 @@ return {
     { -- Discover tabstops, shiftwidth, and expandtab from file
         'nmac427/guess-indent.nvim',
         config = function() require('guess-indent').setup {} end,
-    },
-    {
-        config = function()
-        end
     },
     { -- Completion plugin with LSP support
         'saghen/blink.cmp',
