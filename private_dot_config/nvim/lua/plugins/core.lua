@@ -1,4 +1,5 @@
 return {
+    {"rcarriga/nvim-notify"}, -- simple notifications
     { -- simple, automatic session management
         "rmagatti/auto-session",
         lazy = false,

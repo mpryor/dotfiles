@@ -37,6 +37,7 @@ return {
         opts = {
             labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             jump = {
+                nohlsearch = true,
                 history = true,
                 register = true,
             },
