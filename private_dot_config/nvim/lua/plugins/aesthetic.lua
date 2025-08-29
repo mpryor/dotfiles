@@ -17,25 +17,26 @@ return {
         config = function()
             require('lualine').setup({
                 sections = {
-                    lualine_c = { 'filename', 'navic' },
+                    lualine_c = { 'filename' },
                 },
             })
         end,
     },
-    { -- Integration with lualine to show code context from LSP
-        'SmiteshP/nvim-navic',
+    { -- Highlight code chunks
+        "shellRaining/hlchunk.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
-            require('nvim-navic').setup({ lsp = { auto_attach = true } })
-        end
-    },
-    {
-        "echasnovski/mini.indentscope",
-        config = function()
-            local is = require("mini.indentscope")
-            is.setup({
-                draw = {
-                    animation = is.gen_animation.none()
-                }
+            require("hlchunk").setup({
+                chunk = {
+                    enable = true,
+                    use_treesitter = true,
+                    textobject = "ic",
+                    delay = 0,
+                    style="#ff9e64", -- nice orange to fit tokyonight theme
+                },
+                indent = {
+                    enable = false,
+                },
             })
         end
     },
@@ -47,4 +48,11 @@ return {
             require('marks').setup()
         end
     },
+    { -- Markdown preview
+        "MeanderingProgrammer/render-markdown.nvim"
+    },
+    { -- Smear cursor
+        "sphamba/smear-cursor.nvim",
+        config = true
+    }
 }

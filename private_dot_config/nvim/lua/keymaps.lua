@@ -13,22 +13,24 @@ set("n", "<Leader>o", ":b#<CR>", { desc = "Flip to previous buffer" })
 set("n", "<Leader>O", "<C-w>O", { desc = "Focus on current buffer" })
 set("n", "<Leader>cd", ":cd %:p:h<CR>", { desc = "Change working directory to current buffer's path" })
 set("n", "<Leader>w", ":w!<CR>", { desc = "Save current buffer" })
-set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" }) -- Vinegar-like movement using Oil
+set("n", "<Leader>-", "<CMD>Oil<CR>", { desc = "Open parent directory" }) -- Vinegar-like movement using Oil
+local zen = require("zen-mode")
+set("n", "<C-w>o", function() zen.toggle({ window = { width = 1 } }) end, { desc = "Toggle zen mode" })
+set("n", "<Leader>cc", ":CopilotChatToggle<CR>", { desc = "Toggle CopilotChat" })
+set("n", "<Leader>a", ":AerialToggle<CR>", { desc = "Toggle Code Outlines" })
 
 -- Terminal keymaps
-set('t', '<C-h>', [[<Cmd>wincmd h<CR>]])
-set('t', '<C-j>', [[<Cmd>wincmd j<CR>]])
-set('t', '<C-k>', [[<Cmd>wincmd k<CR>]])
-set('t', '<C-l>', [[<Cmd>wincmd l<CR>]])
+set({ 'n', 't' }, '<C-h>', [[<Cmd>wincmd h<CR>]])
+set({ 'n', 't' }, '<C-j>', [[<Cmd>wincmd j<CR>]])
+set({ 'n', 't' }, '<C-k>', [[<Cmd>wincmd k<CR>]])
+set({ 'n', 't' }, '<C-l>', [[<Cmd>wincmd l<CR>]])
+set('t', '<ESC><ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
 
 -- Tab management
 set("n", "<Leader>tc", ":tabclose<CR>", { desc = "Close current tab" })   -- Mainly useful for git difftool
 set("n", "<Leader>to", ":tabonly<CR>", { desc = "Close all other tabs" }) -- Mainly useful for git difftool
 set("n", "]t", ":tabnext<CR>", { desc = "Go to next tab" })               -- I don't see ctags in my future
 set("n", "[t", ":tabprev<CR>", { desc = "Go to previous tab" })           -- I don't see ctags in my future
-
-local zen = require("zen-mode")
-set("n", "<C-w>o", function() zen.toggle({ window = { width = 1 } }) end, { desc = "Toggle zen mode" })
 
 -- Telescope bindings
 local telescope = require('telescope.builtin')
@@ -45,58 +47,82 @@ set('n', '<Leader>ff', telescope.builtin, { desc = "Telescope pickers" })
 set('n', '<Leader>fs', session_picker.open_session_picker, { desc = "Telescope find sessions" })
 set('n', '\\', telescope.live_grep, { desc = "Telescope live grep [\\]" })
 
+local actions = require "telescope.actions"
+local action_state = require "telescope.actions.state"
+local pickers = require "telescope.pickers"
+local finders = require "telescope.finders"
+local conf = require("telescope.config").values
+
+local executor = function(opts)
+  opts = opts or {}
+  pickers.new(opts, {
+    prompt_title = "Execute",
+    finder = finders.new_table {
+      results = {
+        "Python: run current file",
+        "Poetry: run current file",
+        "Poetry: run CMD",
+      }
+    },
+    sorter = conf.generic_sorter(opts),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        local action_map = {
+          ["Python: run current file"] = function() vim.cmd("TermExec cmd='python %'") end,
+          ["Poetry: run current file"] = function() vim.cmd("TermExec cmd='poetry run python %'") end,
+          ["Poetry: run CMD"] = function()
+            local termcode = vim.api.nvim_replace_termcodes("<Left>", true, false, true)
+            vim.api.nvim_feedkeys(":TermExec cmd='poetry run '", "n", true)
+            vim.api.nvim_feedkeys(termcode, "n", true)
+          end,
+        }
+        if selection then
+          action_map[selection[1]]()
+        else
+          cmd = action_state.get_current_line()
+          vim.cmd("TermExec cmd='" .. cmd .. "'")
+        end
+      end)
+      return true
+    end,
+  }):find()
+end
+set("n", "<Leader>R", function()
+  executor(require("telescope.themes").get_dropdown {})
+end, { desc = "Execute command" })
+
 -- Flash bindings (like easymotion)
 local flash = require("flash")
+local flash_char = require("flash.plugins.char")
+local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
 
----@param opts Flash.Format
-local function format(opts)
-  -- always show first and second label
-  return {
-    { opts.match.label1, "FlashMatch" },
-    { opts.match.label2, "FlashLabel" },
-  }
+-- Set up a repeatable char jump that works with ; and ,
+-- and doesn't interfere with other flash motions
+function char_jump(key, opts)
+  flash_char.jumping = true
+
+  ts_repeat_move.set_last_move(function(opts)
+    flash_char.state:jump({ count = vim.v.count1, forward = opts.forward })
+  end, { forward = opts.forward })
+
+  flash_char.jump(key)
+  vim.schedule(function()
+    flash_char.jumping = false
+    if flash_char.state then
+      flash_char.state:hide()
+    end
+  end)
 end
 
-function Jump2d()
-  flash.jump({
-    search = { mode = "search" },
-    label = { after = false, before = { 0, 0 }, uppercase = false, format = format },
-    pattern = [[\<]],
-    action = function(match, state)
-      state:hide()
-      flash.jump({
-        search = { max_length = 0 },
-        highlight = { matches = false },
-        label = { format = format },
-        matcher = function(win)
-          -- limit matches to the current label
-          return vim.tbl_filter(function(m)
-            return m.label == match.label and m.win == win
-          end, state.results)
-        end,
-        labeler = function(matches)
-          for _, m in ipairs(matches) do
-            m.label = m.label2 -- use the second label
-          end
-        end,
-      })
-    end,
-    labeler = function(matches, state)
-      local labels = state:labels()
-      for m, match in ipairs(matches) do
-        match.label1 = labels[math.floor((m - 1) / #labels) + 1]
-        match.label2 = labels[(m - 1) % #labels + 1]
-        match.label = match.label1
-      end
-    end,
-  })
-end
-
-set('n', '<Leader><Leader>', Jump2d, { desc = "quickly jump anywhere" })
 set({ 'n', 'x', 'o' }, 'S', flash.treesitter, { desc = "Flash treesitter" })
-set({ 'n', 'x', 'o' }, 's', function ()
-  flash.jump({labels="abcdefghijklmnopqrstuvwyxz"})
-end, { desc = "Flash jump" })
+set({ 'n', 'x', 'o' }, 's', flash.jump, { desc = "Flash jump" })
+set({ 'o' }, 'r', flash.remote, { desc = "Flash jump" })
+vim.keymap.set({ "n", "x", "o" }, "f", function() char_jump("f", { forward = true }) end, { silent = true, })
+vim.keymap.set({ "n", "x", "o" }, "F", function() char_jump("F", { forward = false }) end, { silent = true, })
+vim.keymap.set({ "n", "x", "o" }, "t", function() char_jump("t", { forward = true }) end, { silent = true, })
+vim.keymap.set({ "n", "x", "o" }, "T", function() char_jump("T", { forward = false }) end, { silent = true, })
 
 -- LSP bindings
 set('n', 'gd', telescope.lsp_definitions, { desc = '[G]oto [d]efinition' })
@@ -132,8 +158,8 @@ set('n', '<F11>', dap.step_into, { desc = "Step into" })
 
 -- Git
 set("n", "<Leader>gs", ":Git<CR>", { desc = "[G]it [S]tatus" })
-set("n", "<Leader>gd", ":Git difftool -y<CR>", { desc = "[G]it [D]ifftool" })
-set("n", "<Leader>gD", ":Git difftool -y HEAD<CR>", { desc = "[G]it [D]ifftool" })
+set("n", "<Leader>gd", ":Git difftool -y<CR>", { desc = "[G]it [D]ifftool" })      -- for staging area
+set("n", "<Leader>gD", ":Git difftool -y HEAD<CR>", { desc = "[G]it [D]ifftool" }) -- for last commit
 set("n", "<Leader>ga.", ":Git add .<CR>", { desc = "[G]it [a]dd [.]" })
 set("n", "<Leader>gaa", ":Git add %<CR>", { desc = "[G]it [a]dd current file" })
 set("n", "<Leader>gc", ":Git commit -v<CR>", { desc = "[G]it [c]ommit" })
@@ -156,21 +182,62 @@ set("v", "<A-left>", "<gv")
 set("n", "<A-left>", "<<")
 
 -- Yanky
-vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
-
+vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 -- Uncategorized
-set('t', '<ESC>', '<C-\\><C-n>', { desc = 'Leave terminal mode with ESC' })
 set('x', 'p', 'pgvy', { desc = 'Paste without overwriting register' })
-set('n', '<Leader>R', ':vsplit | startinsert | term ',
-  { desc = 'Start a vsplit in terminal mode with the input command' })
 set("n", "J", "mzJ`z")
 set('n', '<C-d>', '<C-d>zz', { desc = 'Page down, stay centered' })
 set('n', '<C-u>', '<C-u>zz', { desc = 'Page up, stay centered' })
 set("n", "N", "Nzzzv", { desc = "Keep (prev) search result centered" })
 set("n", "n", "nzzzv", { desc = "Keep (next) search result centered" })
+
+-- Text objects
+-- Repeat movement with ; and ,
+vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+
+vim.keymap.set('', '[-', '<Plug>(IndentWisePreviousLesserIndent)', {})
+vim.keymap.set('', '[=', '<Plug>(IndentWisePreviousEqualIndent)', {})
+vim.keymap.set('', '[+', '<Plug>(IndentWisePreviousGreaterIndent)', {})
+vim.keymap.set('', ']-', '<Plug>(IndentWiseNextLesserIndent)', {})
+vim.keymap.set('', ']=', '<Plug>(IndentWiseNextEqualIndent)', {})
+vim.keymap.set('', ']+', '<Plug>(IndentWiseNextGreaterIndent)', {})
+vim.keymap.set('', '[%', '<Plug>(IndentWiseBlockScopeBoundaryBegin)', {})
+vim.keymap.set('', ']%', '<Plug>(IndentWiseBlockScopeBoundaryEnd)', {})
+
+-- Diagnostic pairs
+set('n', ']e', function()
+  vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, wrap = true })
+end, {})
+set('n', '[e', function()
+  vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, wrap = true })
+end, {})
+
+-- Chunk pairs, complements `ic` textobjects from hlchunk
+local chunk_helper = require("hlchunk.utils.chunkHelper")
+
+function get_current_chunk_range()
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local retcode, cur_chunk_range = chunk_helper.get_chunk_range({
+    pos = { bufnr = 0, row = pos[1] - 1, col = pos[2] },
+    use_treesitter = true,
+  })
+  return cur_chunk_range
+end
+
+function prev_chunk()
+  vim.api.nvim_win_set_cursor(0, { get_current_chunk_range().start + 1, 0 })
+end
+
+function next_chunk()
+  vim.api.nvim_win_set_cursor(0, { get_current_chunk_range().finish + 1, 0 })
+end
+
+set({ 'n', 'o' }, '[c', prev_chunk, {})
+set({ 'n', 'o' }, ']c', next_chunk, {})

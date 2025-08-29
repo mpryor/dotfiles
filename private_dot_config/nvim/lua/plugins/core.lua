@@ -1,6 +1,6 @@
 return {
-    {"rcarriga/nvim-notify"}, -- simple notifications
-    { -- simple, automatic session management
+    { "rcarriga/nvim-notify" }, -- simple notifications
+    {                         -- simple, automatic session management
         "rmagatti/auto-session",
         lazy = false,
         opts = {
@@ -22,8 +22,10 @@ return {
                         local autosession = require('auto-session')
                         local cwd_hash = vim.fn.sha256(vim.fn.getcwd())
                         local shada_file_name = autosession.get_root_dir() .. cwd_hash .. '.shada'
-                        if vim.fn.filereadable(shada_file_name) == 1 then vim.cmd('rshada! ' ..
-                            shada_file_name:gsub('%%', '\\%%')) end
+                        if vim.fn.filereadable(shada_file_name) == 1 then
+                            vim.cmd('rshada! ' ..
+                                shada_file_name:gsub('%%', '\\%%'))
+                        end
                     end,
                 },
                 session_lens = {
@@ -35,10 +37,17 @@ return {
         end
     },
     {
-        "akinsho/toggleterm.nvim", config=function()
+        "akinsho/toggleterm.nvim", -- Terminal integration
+        config = function()
             require("toggleterm").setup({
                 open_mapping = "<leader>\\",
-                insert_mappings = false
+                start_in_insert = true,
+                persist_mode = false,
+                insert_mappings = false,
+                direction = 'vertical',
+                size = function()
+                    return vim.o.columns * .4
+                end
             })
         end
     },
@@ -57,8 +66,9 @@ return {
             require("oil").setup({})
         end
     },
-    { "mbbill/undotree" }, -- A nice way to explore the undo tree
-    {                      -- Highlight, edit, and navigate code
+    { "mbbill/undotree" },                         -- A nice way to explore the undo tree
+    { "nvim-treesitter/nvim-treesitter-context" }, -- Show code context at top of window
+    {                                              -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         main = 'nvim-treesitter.configs',
@@ -75,12 +85,10 @@ return {
                     enable = true,
                     lookahead = true,
                     keymaps = {
-                        ["af"] = "@function.outer",
-                        ["if"] = "@function.inner",
-                        ["ac"] = "@class.outer",
-                        ["is"] = "@block.inner",
-                        ["as"] = "@block.outer",
-                        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+                        ["am"] = "@function.outer",
+                        ["im"] = "@function.inner",
+                        ["is"] = "@block.inner", -- pneumonic: inner scope
+                        ["as"] = "@block.outer", -- pneumonic: around scope
                     },
                     selection_modes = {
                         ['@parameter.outer'] = 'v', -- charwise
@@ -89,15 +97,32 @@ return {
                     },
                     include_surrounding_whitespace = false,
                 },
+                move = {
+                    enable = true,
+                    set_jumps = true,
+                    goto_next_start = {
+                        ["]s"] = "@block.inner",
+                        ["]S"] = "@block.outer",
+                        ["]M"] = "@function.inner",
+                        ["]m"] = "@function.outer",
+                    },
+                    goto_previous_start = {
+                        ["[s"] = "@block.inner",
+                        ["[S"] = "@block.outer",
+                        ["[M"] = "@function.inner",
+                        ["[m"] = "@function.outer",
+                    },
+                }
             },
             incremental_selection = {
                 enable = true,
                 keymaps = {
+                    init_selection = "<C-space>",
                     node_incremental = "<C-space>",
                     node_decremental = "<bs>",
                 },
             },
-            indent = { enable = true, disable = { 'ruby' } },
+            indent = { enable = true },
         },
     },
 }

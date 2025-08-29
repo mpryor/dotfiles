@@ -29,27 +29,33 @@ return {
             })
         end
     },
-    'buztard/vim-rel-jump',  -- Adds {count} motions to jumplist
-    {                        -- New motions for quick navigation
+    { -- Code outline sidebar
+        'stevearc/aerial.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+        config = true
+    },
+    'buztard/vim-rel-jump',            -- Adds {count} motions to jumplist
+    {
+        "jeetsukumaran/vim-indentwise" -- move to different levels of indentation
+    },
+    {                                  -- New motions for quick navigation
         "folke/flash.nvim",
         event = "VeryLazy",
         ---@type Flash.Config
         opts = {
-            labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             jump = {
                 nohlsearch = true,
                 history = true,
                 register = true,
             },
             modes = {
-                char = {
-                    jump_labels = true
-                },
-                search = {
-                    enabled = true,
-                }
+                char = { enabled = false, jump_labels = true },
             },
-            continue = true
         },
     },
     {                                    -- The ultimate "finder"/picker
@@ -91,7 +97,6 @@ return {
                     },
                     border = true,
                     sorting_strategy = "ascending",
-                    --
                     mappings = {
                         i = {
                             ["<C-l>"] = actions.send_to_loclist + actions.open_loclist,
@@ -116,8 +121,8 @@ return {
             })
         end
     },
-    {
-        "danielfalk/smart-open.nvim", -- A smarter file picker
+    { -- Enhanced file picker that learns from your habits
+        "danielfalk/smart-open.nvim",
         branch = "0.2.x",
         config = function()
             local telescope = require("telescope")

@@ -1,18 +1,27 @@
-vim.api.nvim_create_autocmd("BufReadPost", {
+vim.api.nvim_create_autocmd("BufReadPost", { -- Set working directory to Neovim config directory when opening init.lua
   pattern = vim.env.HOME .. "/.config/nvim/init.lua",
   callback = function()
     vim.cmd("cd ~/.config/nvim")
   end,
 })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd("TextYankPost", { -- Highlight yanked text
   callback = function()
     vim.highlight.on_yank()
   end,
 })
 
+vim.api.nvim_create_autocmd("BufReadPost", { -- Navigate to last edit position in buffer upon entering
+  pattern = "*",
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    if mark[1] > 0 and mark[1] <= vim.api.nvim_buf_line_count(0) then
+      vim.api.nvim_win_set_cursor(0, mark)
+    end
+  end,
+})
 
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd("BufEnter", { -- Grapple: Tab and Shift-Tab to cycle scopes when in grapple buffer
   callback = function()
     local ft = vim.bo.filetype
     if ft == "grapple" then
@@ -29,7 +38,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
-vim.api.nvim_create_autocmd("BufLeave", {
+vim.api.nvim_create_autocmd("BufLeave", { -- Remove grapple keymaps when leaving grapple buffer
   callback = function()
     local ft = vim.bo.filetype
     if ft == "grapple" then
@@ -39,7 +48,7 @@ vim.api.nvim_create_autocmd("BufLeave", {
   end
 })
 
-vim.on_key(
+vim.on_key( -- Auto toggle 'hlsearch' based on search commands
   function(char)
     if vim.fn.mode() == "n" then
       local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/", "z", "v" }, vim.fn.keytrans(char))
