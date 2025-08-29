@@ -53,35 +53,45 @@ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local conf = require("telescope.config").values
 
+local actions_list = {
+  {
+    label = "Python: run current file",
+    fn = function() vim.cmd("TermExec cmd='python %'") end
+  },
+  {
+    label = "Poetry: run current file",
+    fn = function() vim.cmd("TermExec cmd='poetry run python %'") end
+  },
+  {
+    label = "Poetry: run CMD",
+    fn = function()
+      local termcode = vim.api.nvim_replace_termcodes("<Left>", true, false, true)
+      vim.api.nvim_feedkeys(":TermExec cmd='poetry run '", "n", true)
+      vim.api.nvim_feedkeys(termcode, "n", true)
+    end
+  },
+}
+
 local executor = function(opts)
   opts = opts or {}
+  local action_map = {}
+  local results = {}
+  for _, act in ipairs(actions_list) do
+    action_map[act.label] = act.fn
+    table.insert(results, act.label)
+  end
   pickers.new(opts, {
     prompt_title = "Execute",
-    finder = finders.new_table {
-      results = {
-        "Python: run current file",
-        "Poetry: run current file",
-        "Poetry: run CMD",
-      }
-    },
+    finder = finders.new_table { results = results },
     sorter = conf.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
-        local action_map = {
-          ["Python: run current file"] = function() vim.cmd("TermExec cmd='python %'") end,
-          ["Poetry: run current file"] = function() vim.cmd("TermExec cmd='poetry run python %'") end,
-          ["Poetry: run CMD"] = function()
-            local termcode = vim.api.nvim_replace_termcodes("<Left>", true, false, true)
-            vim.api.nvim_feedkeys(":TermExec cmd='poetry run '", "n", true)
-            vim.api.nvim_feedkeys(termcode, "n", true)
-          end,
-        }
-        if selection then
+        if selection and action_map[selection[1]] then
           action_map[selection[1]]()
         else
-          cmd = action_state.get_current_line()
+          local cmd = action_state.get_current_line()
           vim.cmd("TermExec cmd='" .. cmd .. "'")
         end
       end)
