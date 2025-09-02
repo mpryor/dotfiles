@@ -17,7 +17,7 @@ set("n", "<Leader>-", "<CMD>Oil<CR>", { desc = "Open parent directory" }) -- Vin
 local zen = require("zen-mode")
 set("n", "<C-w>o", function() zen.toggle({ window = { width = 1 } }) end, { desc = "Toggle zen mode" })
 set("n", "<Leader>cc", ":CopilotChatToggle<CR>", { desc = "Toggle CopilotChat" })
-set("n", "<Leader>a", ":AerialToggle<CR>", { desc = "Toggle Code Outlines" })
+set("n", "<Leader>a", ":AerialNavToggle<CR>", { desc = "Toggle Code Outlines" })
 
 -- Terminal keymaps
 set({ 'n', 't' }, '<C-h>', [[<Cmd>wincmd h<CR>]])
@@ -176,8 +176,13 @@ set("n", "<Leader>gc", ":Git commit -v<CR>", { desc = "[G]it [c]ommit" })
 set("n", "<Leader>gp", ":Git push origin<CR>", { desc = "[G]it [p]ush" })
 set("n", "<Leader>gb", ":Gitsigns blame<CR>", { desc = "[G]it [b]lame" })
 set("n", "ga", ":Gitsigns stage_hunk<CR>", { desc = "[G]it [add] hunk" })
-set("n", "]h", ":Gitsigns next_hunk<CR>", { desc = "Next hunk" })
-set("n", "[h", ":Gitsigns prev_hunk<CR>", { desc = "Previous hunk" })
+local gitsigns = require("gitsigns")
+set("n", "]h", function() 
+  gitsigns.next_hunk({target='all'})
+end, { desc = "Next hunk" })
+set("n", "[h", function ()
+  gitsigns.nav_hunk("prev", {preview=true, target='all'})
+end, { desc = "Previous hunk" })
 
 -- Move stuff around
 set("n", "<A-up>", ":m -2<CR>==")
@@ -202,10 +207,10 @@ vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 -- Uncategorized
 set('x', 'p', 'pgvy', { desc = 'Paste without overwriting register' })
 set("n", "J", "mzJ`z")
-set('n', '<C-d>', '<C-d>zz', { desc = 'Page down, stay centered' })
-set('n', '<C-u>', '<C-u>zz', { desc = 'Page up, stay centered' })
-set("n", "N", "Nzzzv", { desc = "Keep (prev) search result centered" })
-set("n", "n", "nzzzv", { desc = "Keep (next) search result centered" })
+set('n', '<C-d>', '<C-d>zz:set hlsearch<CR>', { desc = 'Page down, stay centered' })
+set('n', '<C-u>', '<C-u>zz:set hlsearch<CR>', { desc = 'Page up, stay centered' })
+set("n", "N", "Nzzzv:set hlsearch<CR>", { desc = "Keep (prev) search result centered" })
+set("n", "n", "nzzzv:set hlsearch<CR>", { desc = "Keep (next) search result centered" })
 
 -- Text objects
 -- Repeat movement with ; and ,

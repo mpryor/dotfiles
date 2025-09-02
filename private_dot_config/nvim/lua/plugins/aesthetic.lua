@@ -32,7 +32,7 @@ return {
                     use_treesitter = true,
                     textobject = "ic",
                     delay = 0,
-                    style="#ff9e64", -- nice orange to fit tokyonight theme
+                    style = "#ff9e64", -- nice orange to fit tokyonight theme
                 },
                 indent = {
                     enable = false,

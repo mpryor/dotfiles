@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd("BufLeave", { -- Remove grapple keymaps when leaving
 vim.on_key( -- Auto toggle 'hlsearch' based on search commands
   function(char)
     if vim.fn.mode() == "n" then
-      local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/", "z", "v" }, vim.fn.keytrans(char))
+      local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
       if vim.opt.hlsearch:get() ~= new_hlsearch then
         vim.opt.hlsearch = new_hlsearch
       end
@@ -59,3 +59,21 @@ vim.on_key( -- Auto toggle 'hlsearch' based on search commands
   end,
   vim.api.nvim_create_namespace("auto_hlsearch")
 )
+
+
+vim.api.nvim_create_autocmd("BufEnter", {  -- Set 'q' to close aerial-nav buffer
+  callback = function()
+    local ft = vim.bo.filetype
+    if ft == "aerial-nav" then
+      vim.keymap.set("n", "a", function()
+        vim.cmd("AerialNavToggle")
+        vim.schedule(function ()
+          vim.cmd("AerialToggle")
+        end)
+      end)
+      vim.keymap.set("n", "q", function()
+        vim.cmd("AerialNavToggle")
+      end)
+    end
+  end
+})
