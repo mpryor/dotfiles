@@ -1,3 +1,5 @@
+local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+
 local set = vim.keymap.set
 set("i", "jj", "<ESC>")
 
@@ -106,7 +108,6 @@ end, { desc = "Execute command" })
 -- Flash bindings (like easymotion)
 local flash = require("flash")
 local flash_char = require("flash.plugins.char")
-local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
 
 -- Set up a repeatable char jump that works with ; and ,
 -- and doesn't interfere with other flash motions
@@ -177,12 +178,24 @@ set("n", "<Leader>gp", ":Git push origin<CR>", { desc = "[G]it [p]ush" })
 set("n", "<Leader>gb", ":Gitsigns blame<CR>", { desc = "[G]it [b]lame" })
 set("n", "ga", ":Gitsigns stage_hunk<CR>", { desc = "[G]it [add] hunk" })
 local gitsigns = require("gitsigns")
-set("n", "]h", function() 
-  gitsigns.next_hunk({target='all'})
-end, { desc = "Next hunk" })
-set("n", "[h", function ()
-  gitsigns.nav_hunk("prev", {preview=true, target='all'})
-end, { desc = "Previous hunk" })
+
+local function nav_hunk_preview(forward)
+  if forward then
+    direction = "next"
+  else
+    direction = "prev"
+  end
+  -- Use gitsigns navigation with preview
+  gitsigns.nav_hunk(direction, { preview = true, target = 'all' })
+end
+
+next_hunk, prev_hunk = ts_repeat_move.make_repeatable_move_pair(
+  function() nav_hunk_preview(true) end,
+  function() nav_hunk_preview(false) end
+)
+
+set("n", "]h", next_hunk, { desc = "Next hunk" })
+set("n", "[h", prev_hunk, { desc = "Previous hunk" })
 
 -- Move stuff around
 set("n", "<A-up>", ":m -2<CR>==")
