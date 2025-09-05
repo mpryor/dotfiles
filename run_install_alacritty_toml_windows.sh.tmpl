@@ -1,0 +1,6 @@
+#!/bin/bash
+{{ if eq .chezmoi.os "linux" }}
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+cp ~/.config/alacritty/alacritty.toml /mnt/c/Users/mapry/AppData/Roaming/alacritty/alacritty.toml
+{{   end }}
+{{ end }}
