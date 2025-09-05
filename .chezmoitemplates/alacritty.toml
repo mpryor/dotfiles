@@ -9,6 +9,13 @@ decorations = "None"
 [selection]
 save_to_clipboard = true
 
+{{ if eq .chezmoi.os "linux" }}
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[terminal]
+shell = "Ubuntu"
+{{   end }}
+{{ end }}
+
 [mouse]
 bindings = [{ mouse = "Right", action = "PasteSelection" }]
 

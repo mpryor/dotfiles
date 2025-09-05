@@ -15,3 +15,7 @@
 
 [alias]
     graph = log --oneline --graph --decorate --all
+
+[user]
+    email = mapryor1991@yahoo.com
+    name = Matt Pryor
