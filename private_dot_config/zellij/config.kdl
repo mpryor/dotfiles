@@ -152,8 +152,6 @@ keybinds clear-defaults=true {
         bind "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt =" { Resize "Increase"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Alt w" { CloseFocus; }
 
@@ -175,6 +173,8 @@ keybinds clear-defaults=true {
         bind "Alt t" { NewTab; }
         bind "Alt o" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
+        bind "Alt ]" { GoToNextTab; }
+        bind "Alt [" { GoToPreviousTab ; }
         bind "Alt Tab" { GoToNextTab; }
         bind "Alt Shift Tab" { GoToPreviousTab ; }
         bind "Alt Shift p" { ToggleGroupMarking; }
