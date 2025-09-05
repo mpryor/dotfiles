@@ -67,7 +67,6 @@ return {
         end
     },
     { "mbbill/undotree" },                         -- A nice way to explore the undo tree
-    { "nvim-treesitter/nvim-treesitter-context" }, -- Show code context at top of window
     {                                              -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',

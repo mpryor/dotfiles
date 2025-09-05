@@ -15,7 +15,9 @@ set("n", "<Leader>o", ":b#<CR>", { desc = "Flip to previous buffer" })
 set("n", "<Leader>O", "<C-w>O", { desc = "Focus on current buffer" })
 set("n", "<Leader>cd", ":cd %:p:h<CR>", { desc = "Change working directory to current buffer's path" })
 set("n", "<Leader>w", ":w!<CR>", { desc = "Save current buffer" })
-set("n", "<Leader>-", "<CMD>Oil<CR>", { desc = "Open parent directory" }) -- Vinegar-like movement using Oil
+set("n", "<Leader>-", function ()
+  require("oil").open(nil, {preview = {vertical=true}})
+end, { desc = "Open parent directory" }) -- Vinegar-like movement using Oil
 local zen = require("zen-mode")
 set("n", "<C-w>o", function() zen.toggle({ window = { width = 1 } }) end, { desc = "Toggle zen mode" })
 set("n", "<Leader>cc", ":CopilotChatToggle<CR>", { desc = "Toggle CopilotChat" })
