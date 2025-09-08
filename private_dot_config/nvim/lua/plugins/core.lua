@@ -12,7 +12,7 @@ return {
                     function()
                         local autosession = require('auto-session')
                         local cwd_hash = vim.fn.sha256(vim.fn.getcwd())
-                        local shada_file_name = autosession.get_root_dir() .. cwd_hash .. '.shada'
+                        local shada_file_name = vim.fn.stdpath("data") .. "/shadas/" .. cwd_hash .. '.shada'
                         vim.cmd('wshada! ' .. shada_file_name:gsub('%%', '\\%%'))
                     end,
                 },
@@ -21,7 +21,7 @@ return {
                     function()
                         local autosession = require('auto-session')
                         local cwd_hash = vim.fn.sha256(vim.fn.getcwd())
-                        local shada_file_name = autosession.get_root_dir() .. cwd_hash .. '.shada'
+                        local shada_file_name = vim.fn.stdpath("data") .. "/shadas/" .. cwd_hash .. '.shada'
                         if vim.fn.filereadable(shada_file_name) == 1 then
                             vim.cmd('rshada! ' ..
                                 shada_file_name:gsub('%%', '\\%%'))

@@ -103,6 +103,7 @@ local executor = function(opts)
     end,
   }):find()
 end
+
 set("n", "<Leader>R", function()
   executor(require("telescope.themes").get_dropdown {})
 end, { desc = "Execute command" })
@@ -154,7 +155,7 @@ local dapui = require("dapui")
 
 local function start_debug()
   dap.continue()
-  dapui.open()
+  dapui.open({reset = true})
 end
 
 local function stop_debug()
@@ -168,6 +169,7 @@ set('n', '<leader>db', dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
 set('n', '<F5>', dap.continue, { desc = "Continue" }) -- technically duplicative of <leader>ds
 set('n', '<F10>', dap.step_over, { desc = "Step over" })
 set('n', '<F11>', dap.step_into, { desc = "Step into" })
+set('n', '<F23>', dap.step_out, { desc = "Step out" }) -- Shift + F11
 
 -- Git
 set("n", "<Leader>gs", ":Git<CR>", { desc = "[G]it [S]tatus" })
