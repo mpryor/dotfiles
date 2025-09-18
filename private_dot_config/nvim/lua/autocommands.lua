@@ -70,10 +70,10 @@ vim.api.nvim_create_autocmd("BufEnter", {  -- Set 'q' to close aerial-nav buffer
         vim.schedule(function ()
           vim.cmd("AerialToggle")
         end)
-      end)
+      end, {buffer=true})
       vim.keymap.set("n", "q", function()
         vim.cmd("AerialNavToggle")
-      end)
+      end, {buffer=true})
     end
   end
 })
