@@ -18,7 +18,7 @@ alias lg="lazygit"
 alias reload="source ~/.zshrc"
 alias vi="nvim"
 alias vim="nvim"
-alias ls="ls -alh --color=auto"
+alias ls="eza -alh --color=auto"
 
 function zz() {
    cd $(zoxide query -l --exclude $(pwd) $1 | sort -k 1 -n | awk '{print $1}' | fzf)
