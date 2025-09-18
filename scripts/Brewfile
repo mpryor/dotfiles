@@ -1,6 +1,7 @@
 brew "asdf"
 brew "atuin"
 brew "chezmoi"
+brew "eza"
 brew "fzf"
 brew "gdu"
 brew "git-delta"
