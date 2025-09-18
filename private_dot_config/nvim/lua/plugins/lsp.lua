@@ -18,6 +18,7 @@ return {
       { 'mason-org/mason.nvim', opts = {} }, -- in charge of managing lsp servers, linters & formatters
       'mason-org/mason-lspconfig.nvim', -- bridges mason with lspconfig, lspconfig is used to configure the lsp servers
       'WhoIsSethDaniel/mason-tool-installer.nvim', -- auto install LSP servers, linters, formatters
+      'mfussenegger/nvim-jdtls',
       { 'j-hui/fidget.nvim', opts = {} }, -- status updates for LSP
       'saghen/blink.cmp', -- completion
     },
@@ -55,6 +56,7 @@ return {
         gopls = {}, -- Go language server
         clangd ={}, -- C/C++ language server
         bashls = {}, -- Bash language server
+        jdtls = {},
         lua_ls = { -- Lua language server
           settings = {
             Lua = {
