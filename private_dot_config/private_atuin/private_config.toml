@@ -4,6 +4,7 @@ inline_height_shell_up_key_binding = 10
 show_help = false
 enter_accept = true
 keymap_mode = "vim-normal"
+filter_mode = "session"
 
 [sync]
 records = true
