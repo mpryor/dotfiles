@@ -13,6 +13,12 @@ save_to_clipboard = true
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [terminal]
 shell = "Ubuntu"
+
+[keyboard]
+bindings = [
+    {key="Enter", mods="Alt", action="ReceiveChar"},
+    {key="Enter", mods="Alt|Super", action="ToggleFullScreen"},
+]
 {{   end }}
 {{ end }}
 
