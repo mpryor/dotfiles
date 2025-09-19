@@ -20,6 +20,14 @@ alias vi="nvim"
 alias vim="nvim"
 alias ls="eza -alh --color=auto --icons=always --group-directories-first --git"
 
+function checkout() {
+   git checkout $(git branch -a | sed "s/remotes\/origin\///" | grep -v HEAD | grep -v "\*" | sort | uniq | fzf)
+}
+
+function cleanbranches() {
+   git branch --merged | grep -v "\*" | grep -v main | grep -v master | xargs -n 1 git branch -d
+}
+
 function zz() {
    cd $(zoxide query -l --exclude $(pwd) $1 | sort -k 1 -n | awk '{print $1}' | fzf)
 }
