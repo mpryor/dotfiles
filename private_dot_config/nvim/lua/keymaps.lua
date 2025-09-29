@@ -145,6 +145,7 @@ set('n', 'gO', telescope.lsp_document_symbols, { desc = 'Open Document Symbols' 
 set('n', 'gW', telescope.lsp_dynamic_workspace_symbols, { desc = 'Open Workspace Symbols' })
 set('n', 'gi', telescope.lsp_implementations, { desc = '[G]oto [I]mplementation' })
 set('n', 'gD', vim.lsp.buf.declaration, { desc = '[G]oto [D]eclaration' })
+set('n', 'gt', vim.lsp.buf.type_definition, { desc = '[G]oto [T]ype' })
 set('n', '<Leader>rn', vim.lsp.buf.rename, { desc = '[r]e[n]ame' })
 set('n', '<Leader>ca', vim.lsp.buf.code_action, { desc = '[c]ode [a]ction' })
 set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat' })

@@ -11,6 +11,7 @@ source $ZSH/oh-my-zsh.sh
 
 set -o vi
 
+alias k="kubectl"
 alias gs="git status"
 alias gg="git graph"
 alias cm="chezmoi" # Think: config manager...
