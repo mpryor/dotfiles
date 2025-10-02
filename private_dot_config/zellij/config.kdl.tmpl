@@ -151,48 +151,46 @@ keybinds clear-defaults=true {
         bind "Alt right" { MoveFocusOrTab "right"; }
         bind "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
         bind "Alt =" { Resize "Increase"; }
-        bind "Alt f" { ToggleFloatingPanes; }
-        bind "Alt w" { CloseFocus; }
-
         bind "Alt S" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
             }
             SwitchToMode "normal"
         }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt ]" { GoToNextTab; }
+        bind "Alt d" { Detach; }
+        bind "Alt f" { ToggleFloatingPanes; }
         bind "Alt h" { MoveFocusOrTab "left"; }
         bind "Alt i" { MoveTab "left"; }
         bind "Alt j" { MoveFocus "down"; }
         bind "Alt k" { MoveFocus "up"; }
         bind "Alt l" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewPane; }
-        bind "Alt Enter" { ToggleFocusFullscreen;}
-        bind "Alt d" { Detach; }
-        bind "Alt r" { SwitchToMode "renametab"; TabNameInput 0; }
-        bind "Alt t" { NewTab; }
         bind "Alt o" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
-        bind "Alt ]" { GoToNextTab; }
-        bind "Alt [" { GoToPreviousTab ; }
-        bind "Alt Tab" { GoToNextTab; }
-        bind "Alt Shift Tab" { GoToPreviousTab ; }
         bind "Alt Shift p" { ToggleGroupMarking; }
+        bind "Alt r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "Alt s" { NewPane "stacked";}
-
-        bind "Alt 1" { GoToTab 1;}
-        bind "Alt 2" { GoToTab 2;}
-        bind "Alt 3" { GoToTab 3;}
-        bind "Alt 4" { GoToTab 4;}
-        bind "Alt 5" { GoToTab 5;}
-        bind "Alt 6" { GoToTab 6;}
-        bind "Alt 7" { GoToTab 7;}
-        bind "Alt 8" { GoToTab 8;}
-        bind "Alt 9" { GoToTab 9;}
+        bind "Alt t" { NewTab; }
+        bind "Alt w" { CloseFocus; }
+        bind "Alt tab" { GoToNextTab; }
+        bind "Alt Shift tab" { GoToPreviousTab; }
+        bind "Alt enter" { ToggleFocusFullscreen; }
     }
     shared_except "locked" "renametab" "renamepane" {
-        bind "Alt u" { SwitchToMode "locked"; }
         bind "Ctrl q" { Quit; }
+        bind "Alt u" { SwitchToMode "locked"; }
     }
     shared_except "locked" "entersearch" {
         bind "enter" { SwitchToMode "locked"; }
@@ -368,14 +366,12 @@ pane_frames false
 // that will be used by default if this option is not set.
 // Examples:
 //
-// copy_command "xclip -selection clipboard" - x11
-// copy_command "wl-copy"                    - wayland
-// copy_command "pbcopy"                     - osx
-
+// copy_command "xclip -selection clipboard" // x11
+// copy_command "wl-copy"                    // wayland
+// copy_command "pbcopy"                     // osx
 {{- if eq .chezmoi.os "darwin" }}
 copy_command "pbcopy"
 {{- end }}
-
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
 // Does not apply when using copy_command.
@@ -512,7 +508,7 @@ copy_command "pbcopy"
 // Whether to show tips on startup
 // Default: true
 // 
-// show_startup_tips false
+show_startup_tips false
  
 // Whether to show release notes on first version run
 // Default: true
