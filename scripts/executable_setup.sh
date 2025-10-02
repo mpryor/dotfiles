@@ -31,12 +31,6 @@ install_dotfiles() {
     chezmoi apply
 }
 
-install_languages() {
-    asdf plugin add python
-    asdf plugin add nodejs
-    asdf install
-}
-
 install_fonts() {
     declare -a fonts=(
         FiraCode
@@ -71,7 +65,6 @@ main() {
     install_apps
     install_oh_my_zsh
     install_dotfiles
-    install_languages
     install_fonts
 }
 

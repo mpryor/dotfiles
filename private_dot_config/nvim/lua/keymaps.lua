@@ -110,33 +110,9 @@ end, { desc = "Execute command" })
 
 -- Flash bindings (like easymotion)
 local flash = require("flash")
-local flash_char = require("flash.plugins.char")
-
--- Set up a repeatable char jump that works with ; and ,
--- and doesn't interfere with other flash motions
-function char_jump(key, opts)
-  flash_char.jumping = true
-
-  ts_repeat_move.set_last_move(function(opts)
-    flash_char.state:jump({ count = vim.v.count1, forward = opts.forward })
-  end, { forward = opts.forward })
-
-  flash_char.jump(key)
-  vim.schedule(function()
-    flash_char.jumping = false
-    if flash_char.state then
-      flash_char.state:hide()
-    end
-  end)
-end
-
 set({ 'n', 'x', 'o' }, 'S', flash.treesitter, { desc = "Flash treesitter" })
 set({ 'n', 'x', 'o' }, 's', flash.jump, { desc = "Flash jump" })
 set({ 'o' }, 'r', flash.remote, { desc = "Flash jump" })
-vim.keymap.set({ "n", "x", "o" }, "f", function() char_jump("f", { forward = true }) end, { silent = true, })
-vim.keymap.set({ "n", "x", "o" }, "F", function() char_jump("F", { forward = false }) end, { silent = true, })
-vim.keymap.set({ "n", "x", "o" }, "t", function() char_jump("t", { forward = true }) end, { silent = true, })
-vim.keymap.set({ "n", "x", "o" }, "T", function() char_jump("T", { forward = false }) end, { silent = true, })
 
 -- LSP bindings
 set('n', 'gd', telescope.lsp_definitions, { desc = '[G]oto [d]efinition' })

@@ -1,4 +1,4 @@
-brew "asdf"
+brew "mise"
 brew "atuin"
 brew "chezmoi"
 brew "eza"

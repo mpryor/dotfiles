@@ -52,10 +52,10 @@ zle -N y
 bindkey "^y" y
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 eval "$(atuin init zsh)"
 source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
 source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+eval "$(/home/linuxbrew/.linuxbrew/bin/mise activate zsh)"
 # vim:ft=bash
