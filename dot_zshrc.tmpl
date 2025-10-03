@@ -66,8 +66,6 @@ function _load_functions() {
    fi
 }
 
-_load_functions 
-
 eval "$(${BREW_PATH}/brew shellenv)"
 BREW_PREFIX=$(brew --prefix)
 eval "$(zoxide init zsh)"
@@ -76,4 +74,6 @@ eval "$(atuin init zsh)"
 source ${BREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(${BREW_PREFIX}/bin/mise activate zsh)"
+
+_load_functions 
 # vim:ft=bash
