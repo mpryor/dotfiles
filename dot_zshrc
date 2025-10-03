@@ -51,6 +51,17 @@ bindkey "^|" ultimate-plumber
 zle -N y
 bindkey "^y" y
 
+function _load_functions() {
+   local script_dir="$HOME/.zsh_functions"
+   if [ -d "$script_dir" ]; then
+      for script in "$script_dir"/*.zsh; do
+         [ -r "$script" ] && source "$script"
+      done
+   fi
+}
+
+_load_functions 
+
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
