@@ -5,6 +5,12 @@ plugins=(
    git
 )
 
+{{- if eq .chezmoi.os "darwin" }}
+BREW_PATH="/opt/homebrew/bin"
+{{- else }}
+BREW_PATH="$HOME/.linuxbrew/bin"
+{{- end }}
+
 export EDITOR="nvim"
 
 source $ZSH/oh-my-zsh.sh
@@ -62,11 +68,12 @@ function _load_functions() {
 
 _load_functions 
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(${BREW_PATH}/brew shellenv)"
+BREW_PREFIX=$(brew --prefix)
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 eval "$(atuin init zsh)"
-source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
-source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-eval "$(/home/linuxbrew/.linuxbrew/bin/mise activate zsh)"
+source ${BREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+eval "$(${BREW_PREFIX}/bin/mise activate zsh)"
 # vim:ft=bash
