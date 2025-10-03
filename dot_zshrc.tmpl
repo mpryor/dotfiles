@@ -8,7 +8,7 @@ plugins=(
 {{- if eq .chezmoi.os "darwin" }}
 BREW_PATH="/opt/homebrew/bin"
 {{- else }}
-BREW_PATH="$HOME/.linuxbrew/bin"
+BREW_PATH="/home/linuxbrew/.linuxbrew/bin"
 {{- end }}
 
 export EDITOR="nvim"
