@@ -45,6 +45,9 @@ return {
                     name = "Launch file",
                     program = "${file}",
                     justMyCode = false,
+                    env = {
+                        PYTHONPATH = vim.fn.getcwd()
+                    }
                 },
             }
         end

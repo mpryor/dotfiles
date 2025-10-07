@@ -148,6 +148,16 @@ set('n', '<F10>', dap.step_over, { desc = "Step over" })
 set('n', '<F11>', dap.step_into, { desc = "Step into" })
 set('n', '<F23>', dap.step_out, { desc = "Step out" }) -- Shift + F11
 
+-- Testing
+set('n', '<leader>tr', function() require("neotest").run.run() end, { desc = "Run nearest test" })
+set('n', '<leader>tf', function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run tests in current file" })
+set('n', '<leader>ts', function() require("neotest").summary.toggle() end, { desc = "Toggle test summary" })
+set('n', '<leader>to', function() require("neotest").output.open({ enter = true }) end, { desc = "Open test output" })
+set('n', '<leader>td', function() 
+  dapui.open({reset = true})
+  require("neotest").run.run({ strategy = "dap" }) 
+end, { desc = "Debug nearest test" })
+
 -- Git
 set("n", "<Leader>gs", ":Git<CR>", { desc = "[G]it [S]tatus" })
 set("n", "<Leader>gd", ":Git difftool -y<CR>", { desc = "[G]it [D]ifftool" })      -- for staging area
