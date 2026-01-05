@@ -21,6 +21,7 @@ end, { desc = "Open parent directory" }) -- Vinegar-like movement using Oil
 local zen = require("zen-mode")
 set("n", "<C-w>o", function() zen.toggle({ window = { width = 1 } }) end, { desc = "Toggle zen mode" })
 set("n", "<Leader>cc", ":CopilotChatToggle<CR>", { desc = "Toggle CopilotChat" })
+set({"x", "v"}, "<Leader>cc", "<ESC>:CopilotChatToggle<CR>", { desc = "Toggle CopilotChat" })
 set("n", "<Leader>a", ":AerialNavToggle<CR>", { desc = "Toggle Code Outlines" })
 
 -- Terminal keymaps
