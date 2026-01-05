@@ -18,6 +18,7 @@ shell = "Ubuntu"
 bindings = [
     {key="Enter", mods="Alt", action="ReceiveChar"},
     {key="Enter", mods="Alt|Super", action="ToggleFullScreen"},
+    {key="Space", mods="Control", chars="\u0000"}
 ]
 {{   end }}
 {{ end }}
